@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Smart Statement — Financial Summary</title>
+  <title>HDFC BANK</title>
   <style>
     :root {
       --hdfc-blue: #004c8f;
@@ -2010,7 +2010,8 @@
       var panelPh = document.getElementById("view-nav-placeholder");
       var nav = document.querySelector(".nav");
       if (panelHome && panelFs && panelAst && nav) {
-        var titleBase = "Smart Statement";
+        /* Browser tab text only — change to any fixed string you want */
+        var BROWSER_TAB_TITLE = "HDFC BANK";
         var mainViews = ["home", "financial-summary", "account-statement"];
         var CANON_HTMLFORMAT = "/HDFCRestFulService/webresources/app/htmlformat";
 
@@ -2072,13 +2073,7 @@
             if (li) li.classList.add("is-active");
             link.setAttribute("aria-current", "page");
           }
-          var suffix = " — Financial Summary";
-          if (view === "home") suffix = " — Home";
-          if (view === "account-statement") suffix = " — Account Statement";
-          if (view === "smartbuy-offers") suffix = " — SmartBuy Offers";
-          if (view === "tools") suffix = " — Tools";
-          if (view === "service-charges") suffix = " — Service Charges & Important Information";
-          document.title = titleBase + suffix;
+          document.title = BROWSER_TAB_TITLE;
         }
 
         showView("financial-summary");
