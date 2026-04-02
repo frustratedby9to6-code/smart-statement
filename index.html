@@ -985,7 +985,7 @@
       line-height: 1.2;
     }
 
-    /* Amounts and count numbers (129 / 33) — one rule so typography always matches */
+    /* Amounts and count numbers — one rule so typography always matches */
     .ast-summary-amt,
     .ast-summary-sub-val {
       margin: 0;
@@ -1383,9 +1383,181 @@
       width: 100%;
       height: auto;
     }
+
+    /* Password gate — matches legacy portal: .center + bordered box + table layout (client-side only) */
+    .password-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      margin: 0;
+      background: #fff;
+      overflow: auto;
+      padding: 8px 12px 24px;
+      box-sizing: border-box;
+    }
+
+    html.ss-unlocked .password-gate {
+      display: none !important;
+    }
+
+    html:not(.ss-unlocked) #statement-root {
+      display: none !important;
+    }
+
+    /* Matches inspected .center: 60% width, 3px border, 40px padding, centered; no fixed height (avoid height:90% stretch) */
+    .password-gate .center {
+      margin-left: auto;
+      margin-right: auto;
+      width: 60%;
+      max-width: 100%;
+      box-sizing: border-box;
+      border: 3px solid #003366;
+      background: #fff;
+      padding: calc(40px + 2ch);
+      text-align: center;
+      height: auto;
+    }
+
+    .password-gate-form {
+      margin: 0;
+      width: 100%;
+    }
+
+    .password-gate-table {
+      margin: 0 auto;
+      border-collapse: separate;
+      border-spacing: 2px;
+      width: auto;
+    }
+
+    .password-gate-table td {
+      vertical-align: middle;
+      font-size: 16px;
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    /* Portal b#123: 16px Times, #003366, bolder, width 129px (inline + inline-block) */
+    .pwd-label-b {
+      display: inline-block;
+      font-weight: bolder;
+      font-size: 16px;
+      font-family: Times, "Times New Roman", serif;
+      color: #003366;
+      text-align: left;
+    }
+
+    .password-gate-table .pwd-label-cell {
+      width: 129px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    /* Portal sheet #pwd only sets these four; border/padding = browser default (as in screenshot) */
+    #pwd {
+      width: 176px;
+      height: 29px;
+      background: #fff;
+      outline: none;
+      box-sizing: border-box;
+      margin: 0;
+      font-size: 16px;
+      font-family: "Times New Roman", Times, serif;
+      color: #000;
+    }
+
+    /* Bank layout: both buttons centered as a group under the label+input row */
+    .password-gate-table .pwd-buttons-cell {
+      text-align: center;
+      padding-top: 14px;
+      vertical-align: top;
+    }
+
+    /* Portal inspect: #003366, white, 10px 17px padding, border none, 16px Times */
+    .password-gate-form input[type="submit"],
+    .password-gate-form input[type="button"] {
+      background: #003366;
+      color: #fff;
+      padding: 10px 17px;
+      font-size: 16px;
+      font-family: "Times New Roman", Times, serif;
+      font-weight: normal;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      vertical-align: middle;
+      border: none;
+      border-radius: 0;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .password-gate-form input[type="submit"] {
+      margin-left: 9ch;
+    }
+
+    .password-gate-form input[type="submit"]:hover,
+    .password-gate-form input[type="button"]:hover {
+      filter: brightness(1.08);
+    }
+
+    /* Legacy error strip (#123456 style) */
+    #123456 {
+      color: #d8000c;
+      background-color: #ffbaba;
+      padding: 8px 12px;
+      margin: 16px auto 0;
+      font-size: 14px;
+      font-family: "Times New Roman", Times, serif;
+      text-align: center;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    #123456[hidden] {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
+  <div
+    id="password-gate"
+    class="password-gate"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="pwd-gate-label"
+  >
+    <div class="center" id="456">
+      <form id="pwd-gate-form" class="password-gate-form" autocomplete="off" novalidate>
+        <table class="password-gate-table" role="presentation">
+          <tr>
+            <td class="pwd-label-cell">
+              <label for="pwd">
+                <font color="#003366"><b id="pwd-gate-label" class="pwd-label-b" style="width: 129px">Password:</b></font>
+              </label>
+            </td>
+            <td>
+              <input
+                id="pwd"
+                type="password"
+                name="pwd"
+                autocomplete="off"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="pwd-buttons-cell" colspan="2">
+              <input type="submit" id="pwd-submit" value="Get Statement" />
+              &nbsp;
+              <input type="button" id="pwd-reset" value="Reset" />
+            </td>
+          </tr>
+        </table>
+        <div id="123456" hidden role="alert">Incorrect password.</div>
+      </form>
+    </div>
+  </div>
+
+  <div id="statement-root">
   <div class="layout-shell">
     <div class="header-band">
       <img
@@ -1674,13 +1846,13 @@
                   <p class="ast-summary-label">Debit Amount</p>
                   <p class="ast-summary-amt">₹4,75,529.00</p>
                   <p class="ast-summary-sub-label">Debit Count</p>
-                  <p class="ast-summary-sub-val">129</p>
+                  <p class="ast-summary-sub-val">49</p>
                 </div>
                 <div class="ast-summary-col">
                   <p class="ast-summary-label">Credit Amount</p>
                   <p class="ast-summary-amt">₹4,65,855.00</p>
                   <p class="ast-summary-sub-label">Credit Count</p>
-                  <p class="ast-summary-sub-val">33</p>
+                  <p class="ast-summary-sub-val">11</p>
                 </div>
                 <div class="ast-summary-col">
                   <p class="ast-summary-label">Closing Balance</p>
@@ -1729,8 +1901,59 @@
       </div>
     </div>
   </div>
+  </div>
 
   <script>
+    (function () {
+      var PASS = "MOHA2207";
+      var form = document.getElementById("pwd-gate-form");
+      var input = document.getElementById("pwd");
+      var err = document.getElementById("123456");
+      var resetBtn = document.getElementById("pwd-reset");
+      if (form && input && resetBtn) {
+        try {
+          sessionStorage.removeItem("ss_ok");
+        } catch (e) {}
+
+        function unlock() {
+          document.documentElement.classList.add("ss-unlocked");
+          input.value = "";
+          if (err) err.hidden = true;
+        }
+        function trySubmit() {
+          if (err) err.hidden = true;
+          if (input.value.trim() === PASS) {
+            unlock();
+            return;
+          }
+          if (err) err.hidden = false;
+        }
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          trySubmit();
+        });
+        resetBtn.addEventListener("click", function () {
+          input.value = "";
+          if (err) err.hidden = true;
+          input.focus();
+        });
+        if (!document.documentElement.classList.contains("ss-unlocked")) {
+          input.focus();
+        }
+
+        /* Reopen closed tab (⌘⇧T) and bfcache restore can keep old DOM/session; force gate again */
+        window.addEventListener("pageshow", function (ev) {
+          if (ev.persisted) {
+            document.documentElement.classList.remove("ss-unlocked");
+            try {
+              sessionStorage.removeItem("ss_ok");
+            } catch (e) {}
+            input.focus();
+          }
+        });
+      }
+    })();
+
     (function () {
       var panelHome = document.getElementById("view-home");
       var panelFs = document.getElementById("view-financial-summary");
