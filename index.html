@@ -1931,6 +1931,10 @@
   <script>
     (function () {
       var PASS = "MOHA2207";
+      var FAKE_GET_STATEMENT_PATH = "/HDFCRestFulService/GetStatement.jsp";
+      var FAKE_GET_STATEMENT_QS =
+        "?jobkey=a1b2c3d4e5f6789012345678901234abcdef1234567890abcd&utm_tag=View_SmartStatement1&utm_campaign=Demo_SmartStatement&utm_medium=email&utm_source=Demo&utm_content=View_SmartStatement1";
+      var CANON_HTMLFORMAT = "/HDFCRestFulService/webresources/app/htmlformat";
       var form = document.getElementById("pwd-gate-form");
       var input = document.getElementById("pwd");
       var err = document.getElementById("123456");
@@ -1940,10 +1944,23 @@
           sessionStorage.removeItem("ss_ok");
         } catch (e) {}
 
+        (function normalizePasswordPhaseUrl() {
+          var p = (location.pathname || "").replace(/\/$/, "");
+          if (/GetStatement\.jsp$/i.test(p)) return;
+          var isHtmlformat = /\/htmlformat$/.test(p);
+          var isRoot = p === "" || p === "/" || p === "/index.html";
+          if (!isHtmlformat && !isRoot) return;
+          var h = location.hash && location.hash !== "#" ? location.hash : "";
+          history.replaceState(null, "", FAKE_GET_STATEMENT_PATH + FAKE_GET_STATEMENT_QS + h);
+        })();
+
         function unlock() {
           document.documentElement.classList.add("ss-unlocked");
           input.value = "";
           if (err) err.hidden = true;
+          var h = location.hash && location.hash !== "#" ? location.hash : "#/financial-summary";
+          history.replaceState(null, "", CANON_HTMLFORMAT + h);
+          window.dispatchEvent(new CustomEvent("smartstatement-refresh-links"));
         }
         function trySubmit() {
           if (err) err.hidden = true;
@@ -1973,6 +1990,8 @@
             try {
               sessionStorage.removeItem("ss_ok");
             } catch (e) {}
+            history.replaceState(null, "", FAKE_GET_STATEMENT_PATH + FAKE_GET_STATEMENT_QS);
+            window.dispatchEvent(new CustomEvent("smartstatement-refresh-links"));
             input.focus();
           }
         });
@@ -1988,8 +2007,12 @@
       if (panelHome && panelFs && panelAst && nav) {
         var titleBase = "Smart Statement";
         var mainViews = ["home", "financial-summary", "account-statement"];
+        var CANON_HTMLFORMAT = "/HDFCRestFulService/webresources/app/htmlformat";
 
         function statementAppBase() {
+          if (document.documentElement.classList.contains("ss-unlocked")) {
+            return CANON_HTMLFORMAT;
+          }
           var pathRaw = location.pathname || "";
           var p = pathRaw.replace(/\/$/, "");
           if (/GetStatement\.jsp$/i.test(p)) {
@@ -1997,19 +2020,26 @@
           }
           if (/\/htmlformat$/.test(p)) return p;
           if (p === "" || p === "/" || p === "/index.html") return "";
-          return "/HDFCRestFulService/webresources/app/htmlformat";
+          return CANON_HTMLFORMAT;
         }
 
-        var appBase = statementAppBase();
-        nav.querySelectorAll("a[data-view]").forEach(function (a) {
-          var v = a.getAttribute("data-view");
-          var frag = "#/" + v;
-          a.setAttribute("href", appBase ? appBase + frag : frag);
-        });
-        document.querySelectorAll('a.link-view[href^="#/"]').forEach(function (a) {
-          var frag = a.getAttribute("href");
-          a.setAttribute("href", appBase ? appBase + frag : frag);
-        });
+        function applyStatementLinkHrefs() {
+          var appBase = statementAppBase();
+          nav.querySelectorAll("a[data-view]").forEach(function (a) {
+            var v = a.getAttribute("data-view");
+            var frag = "#/" + v;
+            a.setAttribute("href", appBase ? appBase + frag : frag);
+          });
+          document.querySelectorAll("a.link-view").forEach(function (a) {
+            var href = a.getAttribute("href") || "";
+            var hashIdx = href.indexOf("#");
+            var frag = hashIdx >= 0 ? href.slice(hashIdx) : "#/account-statement";
+            a.setAttribute("href", appBase ? appBase + frag : frag);
+          });
+        }
+
+        applyStatementLinkHrefs();
+        window.addEventListener("smartstatement-refresh-links", applyStatementLinkHrefs);
 
         function viewFromHash() {
           var h = (location.hash || "").replace(/^#/, "");
