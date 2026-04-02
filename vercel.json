@@ -1,0 +1,24 @@
+{
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/HDFCRestFulService/webresources/app/htmlformat",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "destination": "/HDFCRestFulService/webresources/app/htmlformat",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/HDFCRestFulService/webresources/app/htmlformat",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/HDFCRestFulService/webresources/app/htmlformat/",
+      "destination": "/index.html"
+    }
+  ]
+}

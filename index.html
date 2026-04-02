@@ -1390,7 +1390,7 @@
     <div class="header-band">
       <img
         class="header-raster"
-        src="assets/header.png"
+        src="/assets/header.png"
         width="2246"
         height="214"
         alt="HDFC Bank. We understand your world. smart statement."
@@ -1400,12 +1400,12 @@
     <div class="nav-band">
       <nav aria-label="Primary">
         <ul class="nav">
-          <li><a href="#" data-view="home">Home</a></li>
-          <li class="is-active"><a href="#" data-view="financial-summary" aria-current="page">Financial Summary</a></li>
-          <li><a href="#" data-view="account-statement">Account Statement</a></li>
-          <li><a href="#">SmartBuy Offers</a></li>
-          <li><a href="#">Tools</a></li>
-          <li><a href="#">Service Charges &amp; Important Information</a></li>
+          <li><a href="#/home" data-view="home">Home</a></li>
+          <li class="is-active"><a href="#/financial-summary" data-view="financial-summary" aria-current="page">Financial Summary</a></li>
+          <li><a href="#/account-statement" data-view="account-statement">Account Statement</a></li>
+          <li><a href="#/smartbuy-offers" data-view="smartbuy-offers">SmartBuy Offers</a></li>
+          <li><a href="#/tools" data-view="tools">Tools</a></li>
+          <li><a href="#/service-charges" data-view="service-charges">Service Charges &amp; Important Information</a></li>
         </ul>
       </nav>
     </div>
@@ -1427,7 +1427,7 @@
           <section class="everyday-banking" aria-label="Everyday banking">
             <img
               class="everyday-banking-img"
-              src="assets/Everyday%20Banking.png"
+              src="/assets/Everyday%20Banking.png"
               width="1462"
               height="308"
               alt="Everyday banking: Mobile Banking, Net Banking, Phone Banking, Branch"
@@ -1438,7 +1438,7 @@
         <aside class="home-sidebar" aria-label="Promotions and advertisements">
           <img
             class="home-sidebar-ad-img"
-            src="assets/Advertisement.png"
+            src="/assets/Advertisement.png"
             width="712"
             height="1248"
             alt="HDFC Bank promotions: doorstep banking, Cash Pickup, Cash Drop, Cheque Pickup"
@@ -1447,7 +1447,7 @@
         <div class="secure-foot" role="note">
           <img
             class="secure-foot-img"
-            src="assets/secure%20banking.png"
+            src="/assets/secure%20banking.png"
             width="2384"
             height="176"
             alt="Secure Banking"
@@ -1519,7 +1519,7 @@
                 <div class="balance-line">
                   <span class="muted" style="display: block; margin-bottom: 4px;">Available Balance</span>
                   <span class="avail-amt">₹0.00</span>
-                  <a class="link-view" href="#">View</a>
+                  <a class="link-view" href="#/account-statement">View</a>
                 </div>
               </div>
             </div>
@@ -1556,13 +1556,21 @@
       <aside class="sidebar-poster" aria-label="Vigil Aunty cyber safety awareness">
         <img
           class="vigil-banner-img"
-          src="assets/vigil.png"
+          src="/assets/vigil.png"
           width="712"
           height="606"
           alt="Vigil Aunty: No one gets digitally arrested, it is fake. Safety tips and reporting at cybercrime.gov.in or 1930."
         />
       </aside>
     </div>
+    </div>
+
+    <div id="view-nav-placeholder" class="tab-panel" hidden>
+      <section class="user-banner" aria-label="Section placeholder">
+        <p style="padding: 20px 0; color: var(--text-muted); max-width: 640px;">
+          This tab matches the Smart Statement navigation URL only; the bank portal would load its own content here.
+        </p>
+      </section>
     </div>
 
     <div id="view-account-statement" class="tab-panel" hidden>
@@ -1727,14 +1735,33 @@
       var panelHome = document.getElementById("view-home");
       var panelFs = document.getElementById("view-financial-summary");
       var panelAst = document.getElementById("view-account-statement");
+      var panelPh = document.getElementById("view-nav-placeholder");
       var nav = document.querySelector(".nav");
       if (panelHome && panelFs && panelAst && nav) {
         var titleBase = "Smart Statement";
+        var mainViews = ["home", "financial-summary", "account-statement"];
+
+        function viewFromHash() {
+          var h = (location.hash || "").replace(/^#/, "");
+          if (h.charAt(0) === "/") h = h.slice(1);
+          var allowed = [
+            "home",
+            "financial-summary",
+            "account-statement",
+            "smartbuy-offers",
+            "tools",
+            "service-charges"
+          ];
+          if (allowed.indexOf(h) !== -1) return h;
+          return "financial-summary";
+        }
 
         function showView(view) {
-          panelHome.hidden = view !== "home";
-          panelFs.hidden = view !== "financial-summary";
-          panelAst.hidden = view !== "account-statement";
+          var isPlaceholder = mainViews.indexOf(view) === -1;
+          panelHome.hidden = isPlaceholder || view !== "home";
+          panelFs.hidden = isPlaceholder || view !== "financial-summary";
+          panelAst.hidden = isPlaceholder || view !== "account-statement";
+          if (panelPh) panelPh.hidden = !isPlaceholder;
           nav.querySelectorAll("li").forEach(function (li) {
             li.classList.remove("is-active");
           });
@@ -1750,16 +1777,25 @@
           var suffix = " — Financial Summary";
           if (view === "home") suffix = " — Home";
           if (view === "account-statement") suffix = " — Account Statement";
+          if (view === "smartbuy-offers") suffix = " — SmartBuy Offers";
+          if (view === "tools") suffix = " — Tools";
+          if (view === "service-charges") suffix = " — Service Charges & Important Information";
           document.title = titleBase + suffix;
         }
 
-        nav.addEventListener("click", function (e) {
-          var a = e.target.closest("a[data-view]");
-          if (!a) return;
-          e.preventDefault();
-          var v = a.getAttribute("data-view");
-          if (v === "home" || v === "financial-summary" || v === "account-statement") showView(v);
-        });
+        function applyRoute() {
+          showView(viewFromHash());
+        }
+
+        if (!location.hash || location.hash === "#") {
+          history.replaceState(
+            null,
+            "",
+            location.pathname + location.search + "#/financial-summary"
+          );
+        }
+        applyRoute();
+        window.addEventListener("hashchange", applyRoute);
       }
 
       function bindAstAccordion(rootId, toggleId) {
@@ -1848,7 +1884,7 @@
           tbody.appendChild(tr);
         }
 
-        fetch("assets/transactions.json")
+        fetch("/assets/transactions.json")
           .then(function (res) {
             if (!res.ok) throw new Error("missing");
             return res.json();
