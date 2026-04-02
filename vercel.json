@@ -2,22 +2,74 @@
   "redirects": [
     {
       "source": "/index.html",
-      "destination": "/HDFCRestFulService/webresources/app/htmlformat",
+      "destination": "/HDFCRestFulService/GetStatement.jsp?jobkey=a1b2c3d4e5f6789012345678901234abcdef1234567890abcd&utm_tag=View_SmartStatement1&utm_campaign=Demo_SmartStatement&utm_medium=email&utm_source=Demo&utm_content=View_SmartStatement1",
       "permanent": false
     },
     {
       "source": "/",
-      "destination": "/HDFCRestFulService/webresources/app/htmlformat",
+      "destination": "/HDFCRestFulService/GetStatement.jsp?jobkey=a1b2c3d4e5f6789012345678901234abcdef1234567890abcd&utm_tag=View_SmartStatement1&utm_campaign=Demo_SmartStatement&utm_medium=email&utm_source=Demo&utm_content=View_SmartStatement1",
       "permanent": false
     }
   ],
   "rewrites": [
+    {
+      "source": "/HDFCRestFulService/GetStatement.jsp",
+      "destination": "/index.html"
+    },
     {
       "source": "/HDFCRestFulService/webresources/app/htmlformat",
       "destination": "/index.html"
     },
     {
       "source": "/HDFCRestFulService/webresources/app/htmlformat/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/HDFCRestFulService/webresources/app/account-statement",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/HDFCRestFulService/webresources/app/financial-summary",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/HDFCRestFulService/webresources/app/home",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/HDFCRestFulService/webresources/app/smartbuy-offers",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/HDFCRestFulService/webresources/app/tools",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/HDFCRestFulService/webresources/app/service-charges",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/app/account-statement",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/app/financial-summary",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/app/home",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/app/smartbuy-offers",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/app/tools",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/app/service-charges",
       "destination": "/index.html"
     }
   ]

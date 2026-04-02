@@ -1517,6 +1517,31 @@
       display: none !important;
     }
   </style>
+  <script>
+    (function () {
+      var CANON = "/HDFCRestFulService/webresources/app/htmlformat";
+      var VIEWS = {
+        "account-statement": 1,
+        "financial-summary": 1,
+        home: 1,
+        "smartbuy-offers": 1,
+        tools: 1,
+        "service-charges": 1
+      };
+      try {
+        var p = (location.pathname || "").replace(/\/$/, "") || "/";
+        var m = p.match(/^\/HDFCRestFulService\/webresources\/app\/([^/]+)$/);
+        if (m && m[1] !== "htmlformat" && VIEWS[m[1]]) {
+          history.replaceState(null, "", CANON + "#/" + m[1]);
+          return;
+        }
+        var m2 = p.match(/^\/app\/([^/]+)$/);
+        if (m2 && VIEWS[m2[1]]) {
+          history.replaceState(null, "", CANON + "#/" + m2[1]);
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <div
@@ -1840,23 +1865,23 @@
               <div class="ast-summary-grid">
                 <div class="ast-summary-col">
                   <p class="ast-summary-label">Opening Balance</p>
-                  <p class="ast-summary-amt">₹9,674.00</p>
+                  <p class="ast-summary-amt">₹279.53</p>
                 </div>
                 <div class="ast-summary-col">
                   <p class="ast-summary-label">Debit Amount</p>
-                  <p class="ast-summary-amt">₹4,75,529.00</p>
+                  <p class="ast-summary-amt">₹3,15,829.40</p>
                   <p class="ast-summary-sub-label">Debit Count</p>
                   <p class="ast-summary-sub-val">49</p>
                 </div>
                 <div class="ast-summary-col">
                   <p class="ast-summary-label">Credit Amount</p>
-                  <p class="ast-summary-amt">₹4,65,855.00</p>
+                  <p class="ast-summary-amt">₹3,40,890.00</p>
                   <p class="ast-summary-sub-label">Credit Count</p>
                   <p class="ast-summary-sub-val">11</p>
                 </div>
                 <div class="ast-summary-col">
                   <p class="ast-summary-label">Closing Balance</p>
-                  <p class="ast-summary-amt">₹0.00</p>
+                  <p class="ast-summary-amt">₹25,340.13</p>
                 </div>
               </div>
               <div class="ast-summary-search-row">
@@ -1963,6 +1988,28 @@
       if (panelHome && panelFs && panelAst && nav) {
         var titleBase = "Smart Statement";
         var mainViews = ["home", "financial-summary", "account-statement"];
+
+        function statementAppBase() {
+          var pathRaw = location.pathname || "";
+          var p = pathRaw.replace(/\/$/, "");
+          if (/GetStatement\.jsp$/i.test(p)) {
+            return p + (location.search || "");
+          }
+          if (/\/htmlformat$/.test(p)) return p;
+          if (p === "" || p === "/" || p === "/index.html") return "";
+          return "/HDFCRestFulService/webresources/app/htmlformat";
+        }
+
+        var appBase = statementAppBase();
+        nav.querySelectorAll("a[data-view]").forEach(function (a) {
+          var v = a.getAttribute("data-view");
+          var frag = "#/" + v;
+          a.setAttribute("href", appBase ? appBase + frag : frag);
+        });
+        document.querySelectorAll('a.link-view[href^="#/"]').forEach(function (a) {
+          var frag = a.getAttribute("href");
+          a.setAttribute("href", appBase ? appBase + frag : frag);
+        });
 
         function viewFromHash() {
           var h = (location.hash || "").replace(/^#/, "");
