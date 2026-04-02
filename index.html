@@ -1532,12 +1532,12 @@
         var p = (location.pathname || "").replace(/\/$/, "") || "/";
         var m = p.match(/^\/HDFCRestFulService\/webresources\/app\/([^/]+)$/);
         if (m && m[1] !== "htmlformat" && VIEWS[m[1]]) {
-          history.replaceState(null, "", CANON + "#/" + m[1]);
+          history.replaceState(null, "", CANON + "#");
           return;
         }
         var m2 = p.match(/^\/app\/([^/]+)$/);
         if (m2 && VIEWS[m2[1]]) {
-          history.replaceState(null, "", CANON + "#/" + m2[1]);
+          history.replaceState(null, "", CANON + "#");
         }
       } catch (e) {}
     })();
@@ -1597,12 +1597,12 @@
     <div class="nav-band">
       <nav aria-label="Primary">
         <ul class="nav">
-          <li><a href="#/home" data-view="home">Home</a></li>
-          <li class="is-active"><a href="#/financial-summary" data-view="financial-summary" aria-current="page">Financial Summary</a></li>
-          <li><a href="#/account-statement" data-view="account-statement">Account Statement</a></li>
-          <li><a href="#/smartbuy-offers" data-view="smartbuy-offers">SmartBuy Offers</a></li>
-          <li><a href="#/tools" data-view="tools">Tools</a></li>
-          <li><a href="#/service-charges" data-view="service-charges">Service Charges &amp; Important Information</a></li>
+          <li><a href="#" data-view="home">Home</a></li>
+          <li class="is-active"><a href="#" data-view="financial-summary" aria-current="page">Financial Summary</a></li>
+          <li><a href="#" data-view="account-statement">Account Statement</a></li>
+          <li><a href="#" data-view="smartbuy-offers">SmartBuy Offers</a></li>
+          <li><a href="#" data-view="tools">Tools</a></li>
+          <li><a href="#" data-view="service-charges">Service Charges &amp; Important Information</a></li>
         </ul>
       </nav>
     </div>
@@ -1716,7 +1716,7 @@
                 <div class="balance-line">
                   <span class="muted" style="display: block; margin-bottom: 4px;">Available Balance</span>
                   <span class="avail-amt">₹0.00</span>
-                  <a class="link-view" href="#/account-statement">View</a>
+                  <a class="link-view" href="#">View</a>
                 </div>
               </div>
             </div>
@@ -1950,16 +1950,21 @@
           var isHtmlformat = /\/htmlformat$/.test(p);
           var isRoot = p === "" || p === "/" || p === "/index.html";
           if (!isHtmlformat && !isRoot) return;
-          var h = location.hash && location.hash !== "#" ? location.hash : "";
-          history.replaceState(null, "", FAKE_GET_STATEMENT_PATH + FAKE_GET_STATEMENT_QS + h);
+          history.replaceState(null, "", FAKE_GET_STATEMENT_PATH + FAKE_GET_STATEMENT_QS + "#");
+        })();
+
+        (function ensureFakeUrlEndsWithHash() {
+          var p = (location.pathname || "").replace(/\/$/, "");
+          if (!/GetStatement\.jsp$/i.test(p)) return;
+          if (location.hash) return;
+          history.replaceState(null, "", location.pathname + location.search + "#");
         })();
 
         function unlock() {
           document.documentElement.classList.add("ss-unlocked");
           input.value = "";
           if (err) err.hidden = true;
-          var h = location.hash && location.hash !== "#" ? location.hash : "#/financial-summary";
-          history.replaceState(null, "", CANON_HTMLFORMAT + h);
+          history.replaceState(null, "", CANON_HTMLFORMAT + "#");
           window.dispatchEvent(new CustomEvent("smartstatement-refresh-links"));
         }
         function trySubmit() {
@@ -1990,7 +1995,7 @@
             try {
               sessionStorage.removeItem("ss_ok");
             } catch (e) {}
-            history.replaceState(null, "", FAKE_GET_STATEMENT_PATH + FAKE_GET_STATEMENT_QS);
+            history.replaceState(null, "", FAKE_GET_STATEMENT_PATH + FAKE_GET_STATEMENT_QS + "#");
             window.dispatchEvent(new CustomEvent("smartstatement-refresh-links"));
             input.focus();
           }
@@ -2023,38 +2028,31 @@
           return CANON_HTMLFORMAT;
         }
 
+        (function stripLegacyHtmlformatHash() {
+          try {
+            var p = (location.pathname || "").replace(/\/$/, "");
+            if (!/\/htmlformat$/.test(p)) return;
+            if (/^#\/[a-z0-9-]+$/i.test(location.hash || "")) {
+              history.replaceState(null, "", CANON_HTMLFORMAT + "#");
+            }
+          } catch (e) {}
+        })();
+
         function applyStatementLinkHrefs() {
+          var unlocked = document.documentElement.classList.contains("ss-unlocked");
           var appBase = statementAppBase();
+          var tail = "#";
+          var href = unlocked ? CANON_HTMLFORMAT + tail : appBase ? appBase + tail : tail;
           nav.querySelectorAll("a[data-view]").forEach(function (a) {
-            var v = a.getAttribute("data-view");
-            var frag = "#/" + v;
-            a.setAttribute("href", appBase ? appBase + frag : frag);
+            a.setAttribute("href", href);
           });
           document.querySelectorAll("a.link-view").forEach(function (a) {
-            var href = a.getAttribute("href") || "";
-            var hashIdx = href.indexOf("#");
-            var frag = hashIdx >= 0 ? href.slice(hashIdx) : "#/account-statement";
-            a.setAttribute("href", appBase ? appBase + frag : frag);
+            a.setAttribute("href", href);
           });
         }
 
         applyStatementLinkHrefs();
         window.addEventListener("smartstatement-refresh-links", applyStatementLinkHrefs);
-
-        function viewFromHash() {
-          var h = (location.hash || "").replace(/^#/, "");
-          if (h.charAt(0) === "/") h = h.slice(1);
-          var allowed = [
-            "home",
-            "financial-summary",
-            "account-statement",
-            "smartbuy-offers",
-            "tools",
-            "service-charges"
-          ];
-          if (allowed.indexOf(h) !== -1) return h;
-          return "financial-summary";
-        }
 
         function showView(view) {
           var isPlaceholder = mainViews.indexOf(view) === -1;
@@ -2083,19 +2081,29 @@
           document.title = titleBase + suffix;
         }
 
-        function applyRoute() {
-          showView(viewFromHash());
-        }
+        showView("financial-summary");
 
-        if (!location.hash || location.hash === "#") {
-          history.replaceState(
-            null,
-            "",
-            location.pathname + location.search + "#/financial-summary"
-          );
+        nav.addEventListener("click", function (e) {
+          var a = e.target.closest("a[data-view]");
+          if (!a) return;
+          e.preventDefault();
+          showView(a.getAttribute("data-view"));
+          if (document.documentElement.classList.contains("ss-unlocked")) {
+            history.replaceState(null, "", CANON_HTMLFORMAT + "#");
+          }
+        });
+
+        var statementRootEl = document.getElementById("statement-root");
+        if (statementRootEl) {
+          statementRootEl.addEventListener("click", function (e) {
+            var a = e.target.closest("a.link-view");
+            if (!a) return;
+            if (!document.documentElement.classList.contains("ss-unlocked")) return;
+            e.preventDefault();
+            showView("account-statement");
+            history.replaceState(null, "", CANON_HTMLFORMAT + "#");
+          });
         }
-        applyRoute();
-        window.addEventListener("hashchange", applyRoute);
       }
 
       function bindAstAccordion(rootId, toggleId) {
