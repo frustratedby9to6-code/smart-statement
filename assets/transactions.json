@@ -1,0 +1,492 @@
+{
+  "source": "transactions.pdf",
+  "count": 54,
+  "rows": [
+    {
+      "date": "03/02/2025",
+      "details": "UPI-MD RAFEEQ-Q975716242@YBL-YESB0YBLUPI-503474847220-UPI",
+      "ref": "503474847220",
+      "valueDate": "03/02/2025",
+      "withdrawal": "20.00",
+      "deposit": "0.00",
+      "balance": "259.53"
+    },
+    {
+      "date": "03/02/2025",
+      "details": "UPI-GUNTIKOVELA SAI KRIS-SAIKRISHNAGUNTIKOVELA-1@OKICICI-ICIC0001690-540047789221-UPI",
+      "ref": "540047789221",
+      "valueDate": "03/02/2025",
+      "withdrawal": "0.00",
+      "deposit": "33,000.00",
+      "balance": "33,259.53"
+    },
+    {
+      "date": "03/02/2025",
+      "details": "UPI-MOHAMMED MAQSOOD AHM-MAQSOODFOURU-1@OKHDFCBANK-UTIB0005043-503483855070-UPI",
+      "ref": "503483855070",
+      "valueDate": "03/02/2025",
+      "withdrawal": "33,000.00",
+      "deposit": "0.00",
+      "balance": "259.53"
+    },
+    {
+      "date": "04/02/2025",
+      "details": "UPI-RAVULAPALLI RAJASHEK-RAJASHEKAR73342@OKICICI-BARB0VJKNGA-503599714009-UPI",
+      "ref": "503599714009",
+      "valueDate": "04/02/2025",
+      "withdrawal": "0.00",
+      "deposit": "15,000.00",
+      "balance": "15,259.53"
+    },
+    {
+      "date": "05/02/2025",
+      "details": "UPI-NARSIMHAREDDY KASAAR-KASARLANARASIMH AREDDY42@OKAXIS-BARB0VJKMNG-540236142229-UPI",
+      "ref": "540236142229",
+      "valueDate": "05/02/2025",
+      "withdrawal": "0.00",
+      "deposit": "9,850.00",
+      "balance": "10,109.53"
+    },
+    {
+      "date": "05/02/2025",
+      "details": "UPI-MOHAMMED MAQSOOD AHM-MAQSOODFOURU-1@OKHDFCBANK-UTIB0005043-503650271268-UPI",
+      "ref": "503650271268",
+      "valueDate": "05/02/2025",
+      "withdrawal": "9,800.00",
+      "deposit": "0.00",
+      "balance": "309.53"
+    },
+    {
+      "date": "05/02/2025",
+      "details": "UPI-M G SERVICE STATION-Q530456724@YBL - YESB0YBLUPI-503650353684-UPI",
+      "ref": "503650353684",
+      "valueDate": "05/02/2025",
+      "withdrawal": "100.00",
+      "deposit": "0.00",
+      "balance": "209.53"
+    },
+    {
+      "date": "05/02/2025",
+      "details": "UPI-MD ALTAF HUSSAIN-MDALTAF.MD.HUSSAIN@OKICICI-ICIC0000570-540231920037-UPI",
+      "ref": "540231920037",
+      "valueDate": "05/02/2025",
+      "withdrawal": "0.00",
+      "deposit": "10.00",
+      "balance": "219.53"
+    },
+    {
+      "date": "06/02/2025",
+      "details": "NEFT CR-HDFC0004277-AMIGOS SOFTWARE SOLUTIONS PRIVATE LIMITED-MOHAMMED MAQSOOD AHMED-503678517672",
+      "ref": "503678517672",
+      "valueDate": "06/02/2025",
+      "withdrawal": "0.00",
+      "deposit": "89,333.00",
+      "balance": "89,552.53"
+    },
+    {
+      "date": "06/02/2025",
+      "details": "UPI-CRED-CRED.CLUB@AXISB-UTIB0000114-503667057526-PAYMENT ON CRED",
+      "ref": "503667057526",
+      "valueDate": "06/02/2025",
+      "withdrawal": "49,332.00",
+      "deposit": "0.00",
+      "balance": "40,220.53"
+    },
+    {
+      "date": "06/02/2025",
+      "details": "UPI-MANJU DEVI-Q261980085@YBL-YESB0YBLUPI-503719722520-UPI",
+      "ref": "503719722520",
+      "valueDate": "06/02/2025",
+      "withdrawal": "20.00",
+      "deposit": "0.00",
+      "balance": "40,200.53"
+    },
+    {
+      "date": "09/02/2025",
+      "details": "UPI-VANKUDAVATH VINOD-Q961614402@YBL-YESB0YBLUPI-504077248929-UPI",
+      "ref": "504077248929",
+      "valueDate": "09/02/2025",
+      "withdrawal": "25.00",
+      "deposit": "0.00",
+      "balance": "40,175.53"
+    },
+    {
+      "date": "14/02/2025",
+      "details": "AMB CHRG INCL GST FOR JAN2025-MIR2504359 939862 MIR",
+      "ref": "2504359939862",
+      "valueDate": "14/02/2025",
+      "withdrawal": "127.49",
+      "deposit": "0.00",
+      "balance": "40,038.04"
+    },
+    {
+      "date": "20/02/2025",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOV L8KE9@MBK-PPIW0881822-100321908533-UPI",
+      "ref": "100321908533",
+      "valueDate": "20/02/2025",
+      "withdrawal": "20.00",
+      "deposit": "0.00",
+      "balance": "40,018.04"
+    },
+    {
+      "date": "23/02/2025",
+      "details": "UPI-MR MOHAMMED MOHSIN A-MA.TRADERS.DEN@OKAXIS-SCBL0036046-542088992841-UPI",
+      "ref": "542088992841",
+      "valueDate": "23/02/2025",
+      "withdrawal": "0.00",
+      "deposit": "1,000.00",
+      "balance": "41,018.04"
+    },
+    {
+      "date": "23/02/2025",
+      "details": "UPI-KONDABOYINA RAVI TEJ-8341452075@YBL - KKBK0000958-100462407337-UPI",
+      "ref": "100462407337",
+      "valueDate": "23/02/2025",
+      "withdrawal": "38,000.00",
+      "deposit": "0.00",
+      "balance": "3,018.04"
+    },
+    {
+      "date": "06/03/2025",
+      "details": "NEFT CR-HDFC0004277-AMIGOS SOFTWARE SOLUTIONS PRIVATE LIMITED-MOHAMMED MAQSOOD AHMED-542294152565",
+      "ref": "542294152565",
+      "valueDate": "06/03/2025",
+      "withdrawal": "0.00",
+      "deposit": "96,000.00",
+      "balance": "99,018.04"
+    },
+    {
+      "date": "08/03/2025",
+      "details": "UPI-SRI CHAKRA TRANSPORT-PAYTM-768774@PT YS-YESB0PTMUPI-100860891617-UPI",
+      "ref": "100860891617",
+      "valueDate": "08/03/2025",
+      "withdrawal": "145.00",
+      "deposit": "0.00",
+      "balance": "98,873.04"
+    },
+    {
+      "date": "11/03/2025",
+      "details": "UPI-JAY ENTERPRISES-PAYTMQR1C0IXO8NMR@PA YTM-YESB0PTMUPI-101327934235-UPI",
+      "ref": "101327934235",
+      "valueDate": "11/03/2025",
+      "withdrawal": "133.00",
+      "deposit": "0.00",
+      "balance": "98,740.04"
+    },
+    {
+      "date": "11/03/2025",
+      "details": "UPI-SHEEREN BEGUM-PAYTMQR5ETS9V@PTYS-YES B0PTMUPI-101329709073-UPI",
+      "ref": "101329709073",
+      "valueDate": "11/03/2025",
+      "withdrawal": "880.00",
+      "deposit": "0.00",
+      "balance": "97,860.04"
+    },
+    {
+      "date": "12/03/2025",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADL9237917NAY OUR2FC@MBK-PPIW0881822-101363779067-UPI",
+      "ref": "101363779067",
+      "valueDate": "12/03/2025",
+      "withdrawal": "20.00",
+      "deposit": "0.00",
+      "balance": "97,840.04"
+    },
+    {
+      "date": "14/03/2025",
+      "details": "UPI-R ROYALBAWARCHI RES-Q942363199@YBL-Y ESB0YBLUPI-101492056586-UPI",
+      "ref": "101492056586",
+      "valueDate": "14/03/2025",
+      "withdrawal": "10.00",
+      "deposit": "0.00",
+      "balance": "80,830.04"
+    },
+    {
+      "date": "14/03/2025",
+      "details": "UPI-R ROYALBAWARCHI RES-Q942363199@YBL-Y ESB0YBLUPI-101493113598-UPI",
+      "ref": "101493113598",
+      "valueDate": "14/03/2025",
+      "withdrawal": "260.00",
+      "deposit": "0.00",
+      "balance": "80,570.04"
+    },
+    {
+      "date": "15/03/2025",
+      "details": "UPI-GOOGLE INDIA SERVICE-GPAYRECHARGE@IC ICI-ICIC0DC0099-101513194718-UPI",
+      "ref": "101513194718",
+      "valueDate": "15/03/2025",
+      "withdrawal": "350.90",
+      "deposit": "0.00",
+      "balance": "80,219.14"
+    },
+    {
+      "date": "15/03/2025",
+      "details": "UPI-VANKUDAVATH VINOD-Q961614402@YBL-YESB0YBLUPI-101532153597-UPI",
+      "ref": "101532153597",
+      "valueDate": "15/03/2025",
+      "withdrawal": "10.00",
+      "deposit": "0.00",
+      "balance": "80,209.14"
+    },
+    {
+      "date": "17/03/2025",
+      "details": "UPI-MOHAMMED MAQSOOD AHM-MAQSOODFOURU-1@OKHDFCBANK-UTIB0005043-101607183498-UPI",
+      "ref": "101607183498",
+      "valueDate": "17/03/2025",
+      "withdrawal": "50,000.00",
+      "deposit": "0.00",
+      "balance": "30,169.14"
+    },
+    {
+      "date": "17/03/2025",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADL9237917NAY OUR2FC@MBK-PPIW0881822-101613223002-UPI",
+      "ref": "101613223002",
+      "valueDate": "17/03/2025",
+      "withdrawal": "90.00",
+      "deposit": "0.00",
+      "balance": "30,079.14"
+    },
+    {
+      "date": "23/03/2025",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOV L8KE9@MBK-PPIW0881822-101921194429-UPI",
+      "ref": "101921194429",
+      "valueDate": "23/03/2025",
+      "withdrawal": "20.00",
+      "deposit": "0.00",
+      "balance": "30,059.14"
+    },
+    {
+      "date": "24/03/2025",
+      "details": "UPI-MR MOHAMMED MOHSIN A-MAXSYMOHSIN@OKA XIS-SCBL0036046-508375618751-UPI",
+      "ref": "508375618751",
+      "valueDate": "24/03/2025",
+      "withdrawal": "0.00",
+      "deposit": "500.00",
+      "balance": "30,559.14"
+    },
+    {
+      "date": "25/03/2025",
+      "details": "UPI-KRISHNAS MART-PAYTM-66461025@PTYS-YE SB0PTMUPI-102027702141-UPI",
+      "ref": "102027702141",
+      "valueDate": "25/03/2025",
+      "withdrawal": "5,038.00",
+      "deposit": "0.00",
+      "balance": "25,521.14"
+    },
+    {
+      "date": "26/03/2025",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOV L8KE9@MBK-PPIW0881822-102091068451-UPI",
+      "ref": "102091068451",
+      "valueDate": "26/03/2025",
+      "withdrawal": "20.00",
+      "deposit": "0.00",
+      "balance": "25,501.14"
+    },
+    {
+      "date": "27/03/2025",
+      "details": "UPI-MD MUNAWAR-MUNAWARCITRIX12@OKAXIS-KK BK0007494-545249183014-UPI",
+      "ref": "545249183014",
+      "valueDate": "27/03/2025",
+      "withdrawal": "0.00",
+      "deposit": "50.00",
+      "balance": "25,551.14"
+    },
+    {
+      "date": "28/03/2025",
+      "details": "UPI-VIJAY RAO JANAJI-Q584583077@YBL-YESB 0YBLUPI-102216626452-UPI",
+      "ref": "102216626452",
+      "valueDate": "28/03/2025",
+      "withdrawal": "15,000.00",
+      "deposit": "0.00",
+      "balance": "10,551.14"
+    },
+    {
+      "date": "30/03/2025",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOV L8KE9@MBK-PPIW0881822-102289007457-UPI",
+      "ref": "102289007457",
+      "valueDate": "30/03/2025",
+      "withdrawal": "530.00",
+      "deposit": "0.00",
+      "balance": "10,021.14"
+    },
+    {
+      "date": "31/03/2025",
+      "details": "UPI-BANDI NAVEEN-9618667021@IBL-CNRB0000 033-102339453032-UPI",
+      "ref": "102339453032",
+      "valueDate": "31/03/2025",
+      "withdrawal": "10.00",
+      "deposit": "0.00",
+      "balance": "10,011.14"
+    },
+    {
+      "date": "01/04/2025",
+      "details": "INTEREST PAID TILL 31-MAR-2025",
+      "ref": "\u2014",
+      "valueDate": "31/03/2025",
+      "withdrawal": "0.00",
+      "deposit": "147.00",
+      "balance": "10,158.14"
+    },
+    {
+      "date": "02/04/2025",
+      "details": "UPI-MD RAFEEQ-Q975716242@YBL-YESB0YBLUPI-102465368301-UPI",
+      "ref": "102465368301",
+      "valueDate": "02/04/2025",
+      "withdrawal": "25.00",
+      "deposit": "0.00",
+      "balance": "10,133.14"
+    },
+    {
+      "date": "02/04/2025",
+      "details": "UPI-MR CHITUKULA SATHISH-Q544625980@YBL - YESB0YBLUPI-545830391164-UPI",
+      "ref": "545830391164",
+      "valueDate": "02/04/2025",
+      "withdrawal": "40.00",
+      "deposit": "0.00",
+      "balance": "10,093.14"
+    },
+    {
+      "date": "02/04/2025",
+      "details": "UPI-KRISHN KUMAR SAH-Q393676684@YBL-YESB 0YBLUPI-102482799567-UPI",
+      "ref": "102482799567",
+      "valueDate": "02/04/2025",
+      "withdrawal": "25.00",
+      "deposit": "0.00",
+      "balance": "10,068.14"
+    },
+    {
+      "date": "03/04/2025",
+      "details": "UPI-MR SYED AKBAR-Q440183753@YBL-YESB0YB LUPI-102533859891-UPI",
+      "ref": "102533859891",
+      "valueDate": "03/04/2025",
+      "withdrawal": "100.00",
+      "deposit": "0.00",
+      "balance": "9,968.14"
+    },
+    {
+      "date": "03/04/2025",
+      "details": "UPI-VIJAY SINGH-Q318903350@YBL-YESB0YBLU PI-102544560432-UPI",
+      "ref": "102544560432",
+      "valueDate": "03/04/2025",
+      "withdrawal": "15.00",
+      "deposit": "0.00",
+      "balance": "9,953.14"
+    },
+    {
+      "date": "03/04/2025",
+      "details": "UPI-VIJAY SINGH-Q318903350@YBL-YESB0YBLU PI-102544601993-UPI",
+      "ref": "102544601993",
+      "valueDate": "03/04/2025",
+      "withdrawal": "3.00",
+      "deposit": "0.00",
+      "balance": "9,950.14"
+    },
+    {
+      "date": "03/04/2025",
+      "details": "UPI-KETHAVATH PANDU-Q385663085@YBL-YESB0 YBLUPI-102545128536-UPI",
+      "ref": "102545128536",
+      "valueDate": "03/04/2025",
+      "withdrawal": "10.00",
+      "deposit": "0.00",
+      "balance": "9,940.14"
+    },
+    {
+      "date": "03/04/2025",
+      "details": "UPI-MOHAMMED MAQSOOD AHM-MAQSOODFOURU-1@OKHDFCBANK-UTIB0005043-102555446475-UPI",
+      "ref": "102555446475",
+      "valueDate": "03/04/2025",
+      "withdrawal": "7,000.00",
+      "deposit": "0.00",
+      "balance": "2,940.14"
+    },
+    {
+      "date": "05/04/2025",
+      "details": "UPI-H P PETROL PUMP M G-Q231950437@YBL - YESB0YBLUPI-102647346342-UPI",
+      "ref": "102647346342",
+      "valueDate": "05/04/2025",
+      "withdrawal": "150.00",
+      "deposit": "0.00",
+      "balance": "2,680.13"
+    },
+    {
+      "date": "06/04/2025",
+      "details": "UPI-MAHANKALI MADHUSUDHA-Q616475109@YBL - YESB0YBLUPI-102697092074-UPI",
+      "ref": "102697092074",
+      "valueDate": "06/04/2025",
+      "withdrawal": "150.00",
+      "deposit": "0.00",
+      "balance": "2,530.13"
+    },
+    {
+      "date": "06/04/2025",
+      "details": "UPI-MD SHARFU UDDIN-PAYTMQR5WNC6C@PTYS-Y ESB0PTMUPI-102829641521-UPI",
+      "ref": "102829641521",
+      "valueDate": "06/04/2025",
+      "withdrawal": "70.00",
+      "deposit": "0.00",
+      "balance": "2,460.13"
+    },
+    {
+      "date": "06/04/2025",
+      "details": "UPI-CHANDRA PRAKASH-Q815526843@YBL-YESB0 YBLUPI-102922989253-UPI",
+      "ref": "102922989253",
+      "valueDate": "06/04/2025",
+      "withdrawal": "20.00",
+      "deposit": "0.00",
+      "balance": "2,440.13"
+    },
+    {
+      "date": "06/04/2025",
+      "details": "UPI-RAJA BAKERY CAKES B-GPAY-11240041128@OKBIZAXIS-UTIB0000553-102969920574-UPI",
+      "ref": "102969920574",
+      "valueDate": "06/04/2025",
+      "withdrawal": "10.00",
+      "deposit": "0.00",
+      "balance": "2,430.13"
+    },
+    {
+      "date": "07/04/2025",
+      "details": "NEFT CR-HDFC0004277-AMIGOS SOFTWARE SOLUTIONS PRIVATE LIMITED-MOHAMMED MAQSOOD AHMED-510107068570",
+      "ref": "510107068570",
+      "valueDate": "07/04/2025",
+      "withdrawal": "0.00",
+      "deposit": "96,000.00",
+      "balance": "98,430.13"
+    },
+    {
+      "date": "11/04/2025",
+      "details": "UPI-MOHAMMED MAQSOOD AHM-MAQSOODFOURU-1@OKHDFCBANK-UTIB0005043-102986118034-UPI",
+      "ref": "102986118034",
+      "valueDate": "11/04/2025",
+      "withdrawal": "45,000.00",
+      "deposit": "0.00",
+      "balance": "53,430.13"
+    },
+    {
+      "date": "18/04/2025",
+      "details": "UPI-PRASHOBH KUMAR K-PAYTMQR6AT1GQ@PTYS- YESB0PTMUPI-103369839428-UPI",
+      "ref": "103369839428",
+      "valueDate": "18/04/2025",
+      "withdrawal": "90.00",
+      "deposit": "0.00",
+      "balance": "53,340.13"
+    },
+    {
+      "date": "25/04/2025",
+      "details": "UPI-DEEKONDA SHANKER-Q559291901@YBL-UBIN 0532754-103767107568-UPI",
+      "ref": "103767107568",
+      "valueDate": "25/04/2025",
+      "withdrawal": "13,000.00",
+      "deposit": "0.00",
+      "balance": "40,340.13"
+    },
+    {
+      "date": "27/04/2025",
+      "details": "UPI-SHAIK MASTANVALI-PAYTMQR5WRZ07@PTYS - YESB0PTMUPI-103866335018-UPI",
+      "ref": "103866335018",
+      "valueDate": "27/04/2025",
+      "withdrawal": "15,000.00",
+      "deposit": "0.00",
+      "balance": "25,340.13"
+    }
+  ]
+}

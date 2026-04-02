@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Statement — Financial Summary</title>
+  <style>
+    :root {
+      --hdfc-blue: #004c8f;
+      --hdfc-blue-dark: #003366;
+      --hdfc-red: #ed1c24;
+      --bg-pale: #e8f4fc;
+      --bg-paler: #f0f7fc;
+      --nav-bar-bg: #ffffff;
+      --nav-inactive-text: #004b8d;
+      --nav-active-bg: #004b8d;
+      /* Portal div#DIV_77_START account/analysis strip */
+      --portal-content-bg: #e1f3fd;
+      --portal-content-text: #333333;
+      --border-light: #c5d9eb;
+      --text-dark: #1a1a1a;
+      --text-muted: #666666;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: #fff;
+      color: var(--text-dark);
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+
+    /* Same width as HDFC portal: centered column, not edge-to-edge */
+    .layout-shell {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 16px;
+      padding-right: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Gray header strip from your portal screenshot (pixel-accurate logo + smart statement) */
+    .header-band {
+      background: #e6e6e6;
+      line-height: 0;
+    }
+
+    .header-raster {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Nav: white strip; active tab = solid blue + white text + rounded top; inactive = blue text on white; blue rule below */
+    .nav-band {
+      background: var(--nav-bar-bg);
+      border-top: none;
+      border-bottom: 2px solid var(--nav-active-bg);
+      padding-top: 8px;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px 0;
+      list-style: none;
+      align-items: flex-end;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav a {
+      display: block;
+      padding: 10px 16px 12px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--nav-inactive-text);
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      background: transparent;
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .nav a:hover {
+      background: rgba(0, 75, 141, 0.06);
+    }
+
+    .nav li.is-active {
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav li.is-active a {
+      background: var(--nav-active-bg);
+      color: #fff;
+      border: 1px solid var(--nav-active-bg);
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      margin-bottom: -2px;
+      padding-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .nav li.is-active a:hover {
+      background: var(--nav-active-bg);
+      color: #fff;
+    }
+
+    .page {
+      padding-top: 20px;
+      padding-bottom: 48px;
+    }
+
+    /* User banner: top row = name/ID | divider | period + PDF; bottom row = full-width address */
+    .user-banner {
+      background: #ebf5fa;
+      border: 1px solid var(--border-light);
+      padding: 18px 22px 16px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(240px, 1fr);
+      grid-template-rows: auto auto;
+      column-gap: 22px;
+      row-gap: 14px;
+      align-items: start;
+    }
+
+    .user-main {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .user-banner .divider {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .user-banner-right {
+      grid-column: 3;
+      grid-row: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px 24px;
+      min-width: 0;
+    }
+
+    .address-row {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      font-size: 0.8rem;
+      color: var(--text-dark);
+      line-height: 1.45;
+      padding-top: 2px;
+      border-top: none;
+    }
+
+    @media (max-width: 900px) {
+      .user-banner {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+
+      .user-main {
+        grid-column: 1;
+        grid-row: auto;
+      }
+
+      .user-banner .divider {
+        display: none;
+      }
+
+      .user-banner-right {
+        grid-column: 1;
+        grid-row: auto;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .address-row {
+        grid-column: 1;
+      }
+    }
+
+    .user-main .name {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: #004a8f;
+      margin: 20px 0 10px;
+    }
+
+    .user-main .cust-id {
+      font-size: 0.8rem;
+      font-weight: 400;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .user-main .cust-label {
+      color: var(--text-dark);
+    }
+
+    .user-main .cust-num {
+      color: #2e7abf;
+      font-weight: 500;
+    }
+
+    .divider {
+      width: 1px;
+      background: #b0c4d4;
+      min-height: 72px;
+      align-self: stretch;
+    }
+
+    .period-block {
+      min-width: 140px;
+      flex: 0 1 auto;
+      background: transparent;
+      border: none;
+      padding: 0;
+      box-sizing: border-box;
+      color: #000000;
+    }
+
+    /* Portal: Arial 17px black; reference shows bold title */
+    .period-block h3 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+      color: #000000;
+      -webkit-text-fill-color: #000000;
+      text-align: left;
+      margin: 0 0 8px;
+    }
+
+    /* From / To: fixed ~1.5–2× date width (~150–180px), not stretched across column */
+    .period-dates {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 100%;
+      column-gap: clamp(6rem, 11vw, 11.25rem);
+      row-gap: 16px;
+    }
+
+    /* Stack "To" directly above the date (same left edge within the column) */
+    .period-col:last-child {
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .period-col:last-child .period-label,
+    .period-col:last-child .period-date {
+      text-align: left;
+    }
+
+    @media (max-width: 900px) {
+      .period-dates {
+        column-gap: clamp(3.5rem, 10vw, 6rem);
+      }
+    }
+
+    .period-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* Labels — same family as heading; size can match portal row */
+    .period-label {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1;
+      color: #000000;
+      -webkit-text-fill-color: #000000;
+      text-align: left;
+      margin: 0 0 4px;
+    }
+
+    /* Matches portal #P_FROM_DATE1 / date paragraphs: Arial 13px #000 */
+    .period-date {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1;
+      color: #000000;
+      -webkit-text-fill-color: #000000;
+      text-align: left;
+      margin: 0;
+    }
+
+    .btn-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--hdfc-blue);
+      color: #fff;
+      border: none;
+      padding: 9px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .btn-pdf svg {
+      flex-shrink: 0;
+      opacity: 0.95;
+    }
+
+    .btn-pdf:hover {
+      background: var(--hdfc-blue-dark);
+    }
+
+    /* Main grid */
+    /* ~2/3 main + ~1/3 sidebar so Vigil image reads larger (like portal) */
+    .main {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+      align-items: start;
+    }
+
+    .ast-content {
+      min-width: 0;
+    }
+
+    #view-account-statement .ast-content {
+      background: #ffffff;
+      padding: 0 0 32px;
+      margin-top: 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Account & expense cards */
+    .card {
+      border: 1px solid var(--border-light);
+      background: #fff;
+      margin-bottom: 20px;
+    }
+
+    .card-head {
+      background: linear-gradient(180deg, #dbeaf6 0%, #d0e4f4 100%);
+      border-bottom: 1px solid var(--border-light);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-head h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--hdfc-blue);
+    }
+
+    /* Portal #Plt_accounts — Account strip */
+    #account-card .card-head {
+      background: #bde7fa;
+      border-bottom: 1px solid var(--border-light);
+      padding: 7px 12px 10px 15px;
+      align-items: center;
+    }
+
+    #account-card .card-head h2 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #004b8d;
+      margin: 0;
+      padding: 0;
+      line-height: 1.1;
+    }
+
+    /* Portal #PlainText550050 — Expense Analysis strip */
+    .expense-card .card-head {
+      background: #bde7fa;
+      border-bottom: 1px solid var(--border-light);
+      padding: 7px 16px 10px 15px;
+    }
+
+    .expense-card .card-head h2 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #004b8d;
+      line-height: 1;
+      text-align: left;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .card-head.static {
+      cursor: default;
+    }
+
+    /* Portal #Push6798: expanded = /\ stroke, collapsed = \/ stroke (same geometry as <select>) */
+    #account-card .account-down-arrow {
+      flex-shrink: 0;
+      box-sizing: border-box;
+      min-width: 123px;
+      height: 45.84px;
+      padding: 1px 6px;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      background-color: #bde7fa;
+      background-repeat: no-repeat;
+      background-position: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-style: normal;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #account-card .account-down-arrow .arrow-up,
+    #account-card .account-down-arrow .arrow-down {
+      display: none;
+      line-height: 0;
+    }
+
+    #account-card:not(.collapsed) .account-down-arrow .arrow-up {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #account-card.collapsed .account-down-arrow .arrow-down {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #account-card .account-down-arrow .ui-chevron {
+      display: block;
+    }
+
+    #account-card:not(.collapsed) .account-down-arrow .arrow-up .ui-chevron {
+      width: 26px;
+      height: 16px;
+    }
+
+    #account-card.collapsed .account-down-arrow .arrow-down .ui-chevron {
+      width: 24px;
+      height: 14px;
+    }
+
+    #account-card .account-down-arrow:focus-visible {
+      outline: 2px solid #004b8d;
+      outline-offset: 2px;
+    }
+
+    .card-body {
+      padding: 0;
+      background: var(--portal-content-bg);
+    }
+
+    .acct-summary-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 7.5px 10px;
+      background: var(--portal-content-bg);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--portal-content-text);
+    }
+
+    .card.collapsed .card-body {
+      display: none;
+    }
+
+    .acct-detail-block {
+      padding: 7.5px 10px 12px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: var(--portal-content-text);
+      background: var(--portal-content-bg);
+    }
+
+    .acct-left .muted {
+      color: var(--portal-content-text);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .balance-line {
+      text-align: right;
+    }
+
+    .balance-total {
+      color: var(--hdfc-blue);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .acct-number-row {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .acct-number {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--hdfc-blue);
+      letter-spacing: 0.03em;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .link-view {
+      color: var(--hdfc-blue);
+      font-size: 0.8rem;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    .avail-amt {
+      color: var(--hdfc-blue);
+      font-weight: 700;
+      font-size: 13px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .icon-minus {
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-left: 6px;
+    }
+
+    .expense-section {
+      padding: 7.5px 10px 14px;
+      background: var(--portal-content-bg);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: var(--portal-content-text);
+    }
+
+    .expense-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 20px 40px;
+      justify-content: flex-start;
+    }
+
+    .expense-controls .btn-view {
+      margin-left: auto;
+    }
+
+    @media (max-width: 600px) {
+      .expense-controls .btn-view {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 220px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--portal-content-text);
+    }
+
+    /* \/ chevron — same stroke style as accordion (navy, open path) */
+    .field select {
+      padding: 7px 30px 7px 10px;
+      font-size: 13px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      border: 1px solid #c5d9eb;
+      border-radius: 2px;
+      background-color: #fff;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23004b8d' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round' d='M1%201.25L5%204.75L9%201.25'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 11px center;
+      appearance: none;
+      cursor: pointer;
+      color: #004b8d;
+    }
+
+    .field select:focus {
+      outline: 2px solid rgba(0, 75, 141, 0.35);
+      outline-offset: 1px;
+    }
+
+    .btn-view {
+      background: var(--hdfc-red);
+      color: #fff;
+      border: none;
+      padding: 8px 24px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: Arial, Helvetica, sans-serif;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .btn-view:hover {
+      filter: brightness(0.95);
+    }
+
+    /* White page behind blue blocks — gutters between banner / accordions match portal */
+    #view-account-statement {
+      padding: 0 0 40px;
+      margin: 0;
+      background: #ffffff;
+      box-sizing: border-box;
+    }
+
+    /* One rounded rectangle: title row + filter row (reference layout) */
+    .ast-banner {
+      background: #e1f1fb;
+      border: 1px solid #c5d9eb;
+      border-radius: 6px;
+      padding: 16px 18px 18px;
+      margin-bottom: 14px;
+      box-sizing: border-box;
+    }
+
+    .ast-banner-head {
+      padding: 0 0 14px;
+      margin: 0;
+      border-bottom: none;
+      box-sizing: border-box;
+    }
+
+    .ast-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 24px;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #PlainText550007.ast-title,
+    .ast-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #004b8d;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .ast-period {
+      font-size: 13px;
+      font-weight: 400;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #000000;
+      margin: 0;
+    }
+
+    /* Shift left (~2 + ~10 tab stops at 4ch each) */
+    #view-account-statement .ast-toolbar .ast-period {
+      transform: translateX(-48ch);
+    }
+
+    .ast-filter-row {
+      padding: 0;
+      margin: 0;
+      padding-top: 14px;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333333;
+    }
+
+    .ast-filters {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 8px;
+      margin: 0;
+      width: 100%;
+      box-sizing: border-box;
+      justify-content: flex-start;
+      column-gap: 14px;
+    }
+
+    /* Moderate gaps between the three fields; View sits just after Product Type */
+    .ast-filters-fields {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 8px 14px;
+      min-width: 0;
+    }
+
+    #view-account-statement .ast-filters .btn-view {
+      flex-shrink: 0;
+      margin-left: 6px;
+      box-sizing: border-box;
+      height: 36px;
+      min-height: 36px;
+      padding: 0 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 700px) {
+      .ast-filters {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .ast-filters-fields {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #view-account-statement .ast-filters .btn-view {
+        margin-left: 0;
+        width: 100%;
+        height: auto;
+        min-height: 40px;
+        padding: 10px 22px;
+      }
+
+      #view-account-statement .ast-filter-row .field:not(.ast-readonly),
+      #view-account-statement .ast-filter-row .field.ast-readonly {
+        max-width: none;
+        width: 100%;
+      }
+    }
+
+    .ast-filter-row .field label,
+    .ast-filter-row .ast-readonly-label {
+      color: #333333;
+    }
+
+    #view-account-statement .ast-filter-row .ast-readonly-label {
+      color: #004b8d;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    /* Wide columns + generous right padding so selected text stays left and chevron sits far right */
+    #view-account-statement .ast-filter-row .field {
+      min-width: 300px;
+      max-width: 540px;
+      padding: 0;
+      gap: 4px;
+      box-sizing: border-box;
+    }
+
+    #view-account-statement .ast-filter-row .field.ast-readonly {
+      flex: 0 1 auto;
+      min-width: 300px;
+      max-width: 540px;
+    }
+
+    /* Same \/ SVG as Financial Summary .field select */
+    #view-account-statement .ast-filter-row select {
+      display: block;
+      width: 100%;
+      height: 36px;
+      padding: 6px 48px 6px 12px;
+      font-size: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      color: #004b8d;
+      text-align: left;
+      background-color: #ffffff;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23004b8d' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round' d='M1%201.25L5%204.75L9%201.25'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 11px center;
+      border: 1px solid #c5d9eb;
+      border-radius: 2px;
+      box-sizing: border-box;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    #view-account-statement .ast-filter-row select:focus {
+      outline: 2px solid rgba(0, 75, 141, 0.35);
+      outline-offset: 1px;
+    }
+
+    /* Product Type: same column width + right padding as selects (white space after text) */
+    #view-account-statement .ast-filter-row .ast-readonly .ast-readonly-value {
+      width: 100%;
+      height: 36px;
+      min-height: 36px;
+      padding: 6px 48px 6px 12px;
+      font-size: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 400;
+      color: #004b8d;
+      background: #ffffff;
+      border: 1px solid #c5d9eb;
+      border-radius: 2px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .ast-readonly-label {
+      font-size: 13px;
+      color: var(--portal-content-text);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .ast-accordion {
+      border: 1px solid #c5d9eb;
+      background: #ffffff;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .ast-accordion-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 18px 11px 16px;
+      background: #c8e8f6;
+      border-bottom: 1px solid #b0d8ec;
+      cursor: pointer;
+      user-select: none;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .ast-accordion.collapsed .ast-accordion-head {
+      border-bottom: none;
+    }
+
+    .ast-accordion-head h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #004b8d;
+      letter-spacing: 0.01em;
+    }
+
+    /* /\ expanded, \/ collapsed — same strokes as #Push6798 + <select> */
+    .ast-accordion-head .ast-down-arrow {
+      flex-shrink: 0;
+      box-sizing: border-box;
+      min-width: 56px;
+      min-height: 40px;
+      padding: 2px 8px;
+      margin: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      font-family: Arial, Helvetica, sans-serif;
+      font-style: normal;
+      pointer-events: none;
+    }
+
+    .ast-accordion-head .ast-down-arrow .arrow-up,
+    .ast-accordion-head .ast-down-arrow .arrow-down {
+      display: none;
+      line-height: 0;
+    }
+
+    .ast-accordion:not(.collapsed) .ast-down-arrow .arrow-up {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ast-accordion.collapsed .ast-down-arrow .arrow-down {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ast-accordion-head .ast-down-arrow .ui-chevron {
+      display: block;
+      width: 22px;
+      height: 13px;
+    }
+
+    .ast-accordion-head:focus-visible {
+      outline: 2px solid #004b8d;
+      outline-offset: 2px;
+    }
+
+    .ast-accordion.collapsed .ast-accordion-body {
+      display: none;
+    }
+
+    .ast-accordion-body {
+      padding: 16px 18px 18px;
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333333;
+    }
+
+    /* Below Branch Details: summary strip + search (portal Account Statement block) */
+    .ast-summary-block {
+      border: 1px solid #c5d9eb;
+      background: #ffffff;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .ast-summary-head {
+      padding: 11px 18px 11px 16px;
+      background: #c8e8f6;
+      border-bottom: 1px solid #b0d8ec;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .ast-summary-head h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #004b8d;
+      letter-spacing: 0.01em;
+    }
+
+    .ast-summary-body {
+      padding: 18px 18px 16px;
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
+    }
+
+    .ast-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px 20px;
+      align-items: start;
+    }
+
+    .ast-summary-col {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .ast-summary-label {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 400;
+      color: #555555;
+      line-height: 1.25;
+    }
+
+    /* Debit Count / Credit Count labels — same stack and metrics */
+    .ast-summary-sub-label {
+      margin: 10px 0 0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: #888888;
+      line-height: 1.2;
+    }
+
+    /* Amounts and count numbers (129 / 33) — one rule so typography always matches */
+    .ast-summary-amt,
+    .ast-summary-sub-val {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #004b8d;
+      line-height: 1;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .ast-summary-search-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 18px;
+    }
+
+    .ast-search-wrap {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .ast-search-wrap input {
+      width: 100%;
+      padding: 7px 34px 7px 10px;
+      font-size: 13px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333333;
+      border: 1px solid #c5d9eb;
+      border-radius: 2px;
+      background: #ffffff;
+      box-sizing: border-box;
+    }
+
+    .ast-search-wrap input::placeholder {
+      color: #888888;
+    }
+
+    .ast-search-wrap input:focus {
+      outline: 2px solid rgba(0, 75, 141, 0.3);
+      outline-offset: 1px;
+    }
+
+    .ast-search-icon {
+      position: absolute;
+      right: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      pointer-events: none;
+      line-height: 0;
+    }
+
+    /* Transactions table — data from assets/transactions.json (see scripts/extract_transactions.py) */
+    .ast-tx-section {
+      margin-top: 16px;
+      margin-left: -18px;
+      margin-right: -18px;
+      width: calc(100% + 36px);
+      border: 1px solid #d8e4ec;
+      border-top: none;
+      background: #fff;
+      box-sizing: border-box;
+      border-radius: 0 0 2px 2px;
+    }
+
+    .ast-tx-status {
+      padding: 14px 18px;
+      font-size: 13px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #555555;
+    }
+
+    .ast-tx-status.ast-tx-err {
+      color: #a61a1a;
+    }
+
+    .ast-tx-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      max-height: min(75vh, 900px);
+      overflow-y: auto;
+    }
+
+    .ast-tx-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      font-family: "Times New Roman", Times, Georgia, serif;
+      color: #111111;
+      table-layout: fixed;
+    }
+
+    .ast-tx-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 700;
+      color: #004b8d;
+      background: #e1f1fb;
+      font-family: Arial, Helvetica, sans-serif;
+      border: 1px solid #333333;
+      border-bottom: 1px solid #333333;
+      white-space: nowrap;
+    }
+
+    .ast-tx-table thead th.ast-num {
+      text-align: right;
+    }
+
+    .ast-tx-table tbody td {
+      padding: 10px 12px;
+      border: 1px solid #333333;
+      vertical-align: top;
+      line-height: 1.35;
+      word-wrap: break-word;
+    }
+
+    .ast-tx-table tbody td.ast-num {
+      text-align: right;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ast-tx-table tbody tr:nth-child(even) {
+      background: #f7fafc;
+    }
+
+    .ast-tx-table tbody tr:nth-child(odd) {
+      background: #ffffff;
+    }
+
+    .ast-tx-table tbody tr.ast-tx-hidden {
+      display: none;
+    }
+
+    .ast-tx-table .ast-col-date {
+      width: 7.5rem;
+    }
+
+    .ast-tx-table .ast-col-ref {
+      width: 11rem;
+    }
+
+    .ast-tx-table .ast-col-vdate {
+      width: 7.5rem;
+    }
+
+    .ast-tx-table .ast-col-amt {
+      width: 8.5rem;
+    }
+
+    .ast-tx-dash {
+      color: #888888;
+    }
+
+    .ast-pdf-fallback {
+      margin: 0;
+      padding: 10px 18px 14px;
+      font-size: 12px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #555555;
+      border-top: 1px solid #e8eef3;
+    }
+
+    .ast-pdf-fallback a {
+      color: #004b8d;
+      font-weight: 600;
+    }
+
+    @media (max-width: 700px) {
+      .ast-tx-section {
+        margin-left: -14px;
+        margin-right: -14px;
+        width: calc(100% + 28px);
+      }
+
+      .ast-pdf-fallback {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .ast-tx-scroll {
+        max-height: 65vh;
+      }
+
+      .ast-tx-table {
+        font-size: 12px;
+      }
+
+      .ast-tx-table thead th,
+      .ast-tx-table tbody td {
+        padding: 8px 8px;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .ast-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 440px) {
+      .ast-summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ast-summary-search-row {
+        justify-content: stretch;
+      }
+
+      .ast-search-wrap {
+        max-width: none;
+      }
+    }
+
+    .ast-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 32px;
+    }
+
+    .ast-detail-grid > .ast-detail-col {
+      min-width: 0;
+    }
+
+    @media (max-width: 700px) {
+      .ast-detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ast-detail-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /*
+      Five columns per row: label | pad | : | pad | value.
+      Use minmax(…, 2.25rem) spacers (no min()+1fr) so older engines don’t drop the whole rule
+      and fall back to flex column — which stacked label, “:”, and value on separate lines.
+    */
+    .ast-detail-col.ast-detail-col-grid {
+      display: grid;
+      grid-template-columns: max-content minmax(0.25rem, 2.25rem) max-content minmax(0.25rem, 2.25rem) minmax(0, 1fr);
+      column-gap: 0;
+      row-gap: 16px;
+      align-items: baseline;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .ast-detail-col-grid .ast-label,
+    .ast-detail-col-grid .ast-sep,
+    .ast-detail-col-grid .ast-val {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    /* Account Details + Branch Details: same layout; labels slightly softer than values */
+    .ast-detail-col-grid .ast-label {
+      text-align: left;
+      color: #555555;
+    }
+
+    .ast-detail-col-grid .ast-sep {
+      color: #555555;
+      justify-self: center;
+    }
+
+    .ast-detail-col-grid .ast-val {
+      color: #333333;
+      min-width: 0;
+      word-wrap: break-word;
+    }
+
+    .ast-detail-col-grid .ast-pad {
+      min-width: 0;
+    }
+
+    @media (max-width: 700px) {
+      .ast-detail-col.ast-detail-col-grid {
+        grid-template-columns: max-content minmax(0.2rem, 1.5rem) max-content minmax(0.2rem, 1.5rem) minmax(0, 1fr);
+      }
+    }
+
+    /* Sidebar ad — matches portal #Image27155: margin-top 20px, border 2px #eee */
+    .sidebar-poster {
+      border: none;
+      background: transparent;
+      padding: 0;
+      margin-top: 20px;
+      line-height: 0;
+    }
+
+    .vigil-banner-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 2px solid #eee;
+      box-sizing: border-box;
+    }
+
+    /* Tab panels */
+    .tab-panel[hidden] {
+      display: none !important;
+    }
+
+    .home-sidebar {
+      margin-top: 20px;
+      line-height: 0;
+    }
+
+    .home-sidebar-ad-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 2px solid #eee;
+      box-sizing: border-box;
+    }
+
+    /* Home — same shell / palette as Financial Summary */
+    .home-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .home-layout > .secure-foot {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .home-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Portal #Home_Cust_Name */
+    .home-greeting {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 25px;
+      font-weight: 400;
+      color: #004a8f;
+      margin: 20px 0 10px;
+    }
+
+    .welcome-box {
+      border: 1px solid #d9d4cc;
+      padding: 16px 18px;
+      background: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.55;
+      max-width: 640px;
+    }
+
+    .welcome-box p {
+      margin: 0 0 12px;
+    }
+
+    .welcome-box p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .home-tc {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      color: #888;
+      margin: 10px 0 24px;
+    }
+
+    .everyday-banking {
+      margin: 0;
+      padding: 0;
+      border: 1px solid var(--border-light);
+      background: var(--portal-content-bg);
+      line-height: 0;
+      max-width: 100%;
+    }
+
+    .everyday-banking-img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .home-status {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 13px;
+      color: #000;
+      margin-top: 14px;
+    }
+
+    .secure-foot {
+      padding-top: 0;
+      border-top: none;
+      line-height: 0;
+    }
+
+    /* Full width of layout shell (left column through right column) */
+    .secure-foot-img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout-shell">
+    <div class="header-band">
+      <img
+        class="header-raster"
+        src="assets/header.png"
+        width="2246"
+        height="214"
+        alt="HDFC Bank. We understand your world. smart statement."
+      />
+    </div>
+
+    <div class="nav-band">
+      <nav aria-label="Primary">
+        <ul class="nav">
+          <li><a href="#" data-view="home">Home</a></li>
+          <li class="is-active"><a href="#" data-view="financial-summary" aria-current="page">Financial Summary</a></li>
+          <li><a href="#" data-view="account-statement">Account Statement</a></li>
+          <li><a href="#">SmartBuy Offers</a></li>
+          <li><a href="#">Tools</a></li>
+          <li><a href="#">Service Charges &amp; Important Information</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="layout-shell page">
+    <div id="view-home" class="tab-panel" hidden>
+      <div class="home-layout">
+        <div class="home-main">
+          <p class="home-greeting" id="Home_Cust_Name">Dear Mr Mohammed Maqsood Ahmed,</p>
+          <div class="welcome-box">
+            <p>Welcome to your SmartStatement.</p>
+            <p>We hope you enjoy the new statement format and look forward to receiving your feedback.</p>
+            <p>To provide feedback, simply click on Important Information tab &amp; take the survey.</p>
+            <p>Warm Regards<br />HDFC Bank</p>
+          </div>
+          <p class="home-tc">*T&amp;C apply.</p>
+
+          <section class="everyday-banking" aria-label="Everyday banking">
+            <img
+              class="everyday-banking-img"
+              src="assets/Everyday%20Banking.png"
+              width="1462"
+              height="308"
+              alt="Everyday banking: Mobile Banking, Net Banking, Phone Banking, Branch"
+            />
+          </section>
+          <p class="home-status">Request Denied</p>
+        </div>
+        <aside class="home-sidebar" aria-label="Promotions and advertisements">
+          <img
+            class="home-sidebar-ad-img"
+            src="assets/Advertisement.png"
+            width="712"
+            height="1248"
+            alt="HDFC Bank promotions: doorstep banking, Cash Pickup, Cash Drop, Cheque Pickup"
+          />
+        </aside>
+        <div class="secure-foot" role="note">
+          <img
+            class="secure-foot-img"
+            src="assets/secure%20banking.png"
+            width="2384"
+            height="176"
+            alt="Secure Banking"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div id="view-financial-summary" class="tab-panel">
+    <section class="user-banner" aria-label="Customer and statement details">
+      <div class="user-main">
+        <p class="name">Mr Mohammed Maqsood Ahmed</p>
+        <p class="cust-id">
+          <span class="cust-label">Customer ID:</span> <span class="cust-num">176973922</span>
+        </p>
+      </div>
+      <div class="divider" aria-hidden="true"></div>
+      <div class="user-banner-right">
+        <div class="period-block">
+          <h3>Statement Period</h3>
+          <div class="period-dates">
+            <div class="period-col">
+              <span class="period-label">From</span>
+              <p class="period-date">01/01/2025</p>
+            </div>
+            <div class="period-col">
+              <span class="period-label">To</span>
+              <p class="period-date">10/01/2026</p>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn-pdf">
+          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm-5 0v6h6V9h-4V3h-2zM5 19V5h8v4h6v10H5z"/>
+          </svg>
+          Save as PDF
+        </button>
+      </div>
+      <p class="address-row">
+        9-151/5 Near Govt Hospital, Ghatkesar Ghatkesar K.v. Rangareddy, ., Telangana, India, 501301
+      </p>
+    </section>
+
+    <div class="main">
+      <div class="main-left">
+        <article class="card" id="account-card">
+          <div class="card-head" id="account-toggle">
+            <h2 id="Plt_accounts">Account</h2>
+            <button
+              type="button"
+              class="account-down-arrow btn-block UpArrow"
+              id="Push6798"
+              aria-expanded="true"
+              aria-controls="account-body"
+              aria-label="Expand or collapse account section"
+            >
+              <span class="arrow-up" aria-hidden="true"><svg class="ui-chevron" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path fill="none" stroke="#004b8d" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" d="M1 4.75L5 1.25L9 4.75"/></svg></span>
+              <span class="arrow-down" aria-hidden="true"><svg class="ui-chevron" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path fill="none" stroke="#004b8d" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" d="M1 1.25L5 4.75L9 1.25"/></svg></span>
+            </button>
+          </div>
+          <div class="card-body" id="account-body">
+            <div class="acct-summary-strip">
+              <span>Savings Account(INR)</span>
+              <div class="balance-line">
+                <span class="balance-total">Total Available Balance : ₹0.00</span>
+                <span class="icon-minus" aria-hidden="true">−</span>
+              </div>
+            </div>
+            <div class="acct-detail-block">
+              <div class="acct-number-row">
+                <div class="acct-left">
+                  <p class="muted">Ghatkesar, Telangana</p>
+                  <span class="acct-number">50100454203101</span>
+                </div>
+                <div class="balance-line">
+                  <span class="muted" style="display: block; margin-bottom: 4px;">Available Balance</span>
+                  <span class="avail-amt">₹0.00</span>
+                  <a class="link-view" href="#">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card expense-card" aria-label="Expense analysis">
+          <div class="card-head static">
+            <h2 id="PlainText550050">Expense Analysis</h2>
+          </div>
+          <div class="card-body">
+            <div class="expense-section">
+              <div class="expense-controls">
+                <div class="field">
+                  <label for="acct-type">Type of account</label>
+                  <select id="acct-type" name="acct-type">
+                    <option selected>Savings Account</option>
+                    <option>Current Account</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="acct-num">Account number</label>
+                  <select id="acct-num" name="acct-num">
+                    <option selected>50100454203101</option>
+                  </select>
+                </div>
+                <button type="button" class="btn-view">View</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside class="sidebar-poster" aria-label="Vigil Aunty cyber safety awareness">
+        <img
+          class="vigil-banner-img"
+          src="assets/vigil.png"
+          width="712"
+          height="606"
+          alt="Vigil Aunty: No one gets digitally arrested, it is fake. Safety tips and reporting at cybercrime.gov.in or 1930."
+        />
+      </aside>
+    </div>
+    </div>
+
+    <div id="view-account-statement" class="tab-panel" hidden>
+      <section class="ast-banner" aria-label="Account statement">
+        <div class="ast-banner-head">
+          <div class="ast-toolbar">
+            <p class="ast-title" id="PlainText550007">Account Statement</p>
+            <p class="ast-period">Statement Period:From 01/01/2025 To 10/01/2026</p>
+          </div>
+        </div>
+
+        <div class="ast-filter-row" id="DIV_40_START_ROW">
+          <div class="ast-filters">
+            <div class="ast-filters-fields">
+              <div class="field">
+                <label for="ast-acct-type">Type of Account</label>
+                <select id="ast-acct-type" name="ast-acct-type">
+                  <option selected>Savings Account</option>
+                  <option>Current Account</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="ast-acct-num">Account number</label>
+                <select id="ast-acct-num" name="ast-acct-num">
+                  <option selected>50100454203101</option>
+                </select>
+              </div>
+              <div class="field ast-readonly">
+                <label class="ast-readonly-label" for="ast-product-type">Product Type</label>
+                <div id="ast-product-type" class="ast-readonly-value">SAVINGS A/C - RESIDENT</div>
+              </div>
+            </div>
+            <button type="button" class="btn-view">View</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="ast-content">
+          <article class="ast-accordion" id="ast-account-details">
+            <div class="ast-accordion-head" role="button" tabindex="0" aria-expanded="true" aria-controls="ast-account-details-body" id="ast-account-details-toggle">
+              <h2>Account Details</h2>
+              <span class="ast-down-arrow" aria-hidden="true">
+                <span class="arrow-up"><svg class="ui-chevron" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path fill="none" stroke="#004b8d" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" d="M1 4.75L5 1.25L9 4.75"/></svg></span>
+                <span class="arrow-down"><svg class="ui-chevron" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path fill="none" stroke="#004b8d" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" d="M1 1.25L5 4.75L9 1.25"/></svg></span>
+              </span>
+            </div>
+            <div class="ast-accordion-body" id="ast-account-details-body">
+              <div class="ast-detail-grid">
+                <div class="ast-detail-col ast-detail-col-grid">
+                  <span class="ast-label">Customer name</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">Mr Mohammed Maqsood Ahmed</span>
+                  <span class="ast-label">Joint holder name1</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">Not Applicable</span>
+                  <span class="ast-label">Joint holder name 2</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">Not Applicable</span>
+                  <span class="ast-label">Currency</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">INR</span>
+                  <span class="ast-label">Nominee</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">Registered</span>
+                </div>
+                <div class="ast-detail-col ast-detail-col-grid">
+                  <span class="ast-label">Account opened on</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">24 Sep 2021</span>
+                  <span class="ast-label">Account Status</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">Account Closed</span>
+                  <span class="ast-label">Limit</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">₹0.00</span>
+                  <span class="ast-label">Hold balance</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">₹0.00</span>
+                  <span class="ast-label">Expected AQB/AMB</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">₹5,000.00</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="ast-accordion" id="ast-branch-details">
+            <div class="ast-accordion-head" role="button" tabindex="0" aria-expanded="true" aria-controls="ast-branch-details-body" id="ast-branch-details-toggle">
+              <h2>Branch Details</h2>
+              <span class="ast-down-arrow" aria-hidden="true">
+                <span class="arrow-up"><svg class="ui-chevron" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path fill="none" stroke="#004b8d" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" d="M1 4.75L5 1.25L9 4.75"/></svg></span>
+                <span class="arrow-down"><svg class="ui-chevron" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path fill="none" stroke="#004b8d" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" d="M1 1.25L5 4.75L9 1.25"/></svg></span>
+              </span>
+            </div>
+            <div class="ast-accordion-body" id="ast-branch-details-body">
+              <div class="ast-detail-grid">
+                <div class="ast-detail-col ast-detail-col-grid">
+                  <span class="ast-label">Branch name</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">Ghatkesar (S_4480)</span>
+                  <span class="ast-label">Branch address</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">Ghatkesar, Telangana</span>
+                  <span class="ast-label">Branch phone number</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">18002600/18001600</span>
+                </div>
+                <div class="ast-detail-col ast-detail-col-grid">
+                  <span class="ast-label">IFSC code</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">HDFC0004480</span>
+                  <span class="ast-label">MICR code</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">501240682</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <section class="ast-summary-block" aria-label="Account statement balances">
+            <div class="ast-summary-head">
+              <h2>Account Statement</h2>
+            </div>
+            <div class="ast-summary-body">
+              <div class="ast-summary-grid">
+                <div class="ast-summary-col">
+                  <p class="ast-summary-label">Opening Balance</p>
+                  <p class="ast-summary-amt">₹9,674.00</p>
+                </div>
+                <div class="ast-summary-col">
+                  <p class="ast-summary-label">Debit Amount</p>
+                  <p class="ast-summary-amt">₹4,75,529.00</p>
+                  <p class="ast-summary-sub-label">Debit Count</p>
+                  <p class="ast-summary-sub-val">129</p>
+                </div>
+                <div class="ast-summary-col">
+                  <p class="ast-summary-label">Credit Amount</p>
+                  <p class="ast-summary-amt">₹4,65,855.00</p>
+                  <p class="ast-summary-sub-label">Credit Count</p>
+                  <p class="ast-summary-sub-val">33</p>
+                </div>
+                <div class="ast-summary-col">
+                  <p class="ast-summary-label">Closing Balance</p>
+                  <p class="ast-summary-amt">₹0.00</p>
+                </div>
+              </div>
+              <div class="ast-summary-search-row">
+                <div class="ast-search-wrap">
+                  <input
+                    type="search"
+                    id="ast-tx-search"
+                    name="ast-tx-search"
+                    placeholder="Search for Transactions"
+                    aria-label="Search for Transactions"
+                    autocomplete="off"
+                  />
+                  <span class="ast-search-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="10.5" cy="10.5" r="6.5" stroke="#777777" stroke-width="2" />
+                      <path d="M16 16L21 21" stroke="#777777" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <div class="ast-tx-section">
+                <div class="ast-tx-status" id="ast-tx-status" role="status">Loading transactions…</div>
+                <div class="ast-tx-scroll" id="ast-tx-scroll" hidden>
+                  <table class="ast-tx-table">
+                    <thead>
+                      <tr>
+                        <th class="ast-col-date" scope="col">Date</th>
+                        <th scope="col">Transaction details</th>
+                        <th class="ast-col-ref" scope="col">Cheque/Ref No</th>
+                        <th class="ast-col-vdate" scope="col">Value date</th>
+                        <th class="ast-col-amt ast-num" scope="col">Withdrawal (₹)</th>
+                        <th class="ast-col-amt ast-num" scope="col">Deposit (₹)</th>
+                        <th class="ast-col-amt ast-num" scope="col">Closing Balance (₹)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="ast-tx-tbody"></tbody>
+                  </table>
+                </div>
+                <p class="ast-pdf-fallback">
+                  <a href="assets/transactions.pdf" target="_blank" rel="noopener">Open full statement PDF</a>
+                  · Regenerate table data after replacing the PDF:
+                  <code style="font-size: 11px">python scripts/extract_transactions.py</code>
+                </p>
+              </div>
+            </div>
+          </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var panelHome = document.getElementById("view-home");
+      var panelFs = document.getElementById("view-financial-summary");
+      var panelAst = document.getElementById("view-account-statement");
+      var nav = document.querySelector(".nav");
+      if (panelHome && panelFs && panelAst && nav) {
+        var titleBase = "Smart Statement";
+
+        function showView(view) {
+          panelHome.hidden = view !== "home";
+          panelFs.hidden = view !== "financial-summary";
+          panelAst.hidden = view !== "account-statement";
+          nav.querySelectorAll("li").forEach(function (li) {
+            li.classList.remove("is-active");
+          });
+          nav.querySelectorAll("a").forEach(function (a) {
+            a.removeAttribute("aria-current");
+          });
+          var link = nav.querySelector('a[data-view="' + view + '"]');
+          if (link) {
+            var li = link.closest("li");
+            if (li) li.classList.add("is-active");
+            link.setAttribute("aria-current", "page");
+          }
+          var suffix = " — Financial Summary";
+          if (view === "home") suffix = " — Home";
+          if (view === "account-statement") suffix = " — Account Statement";
+          document.title = titleBase + suffix;
+        }
+
+        nav.addEventListener("click", function (e) {
+          var a = e.target.closest("a[data-view]");
+          if (!a) return;
+          e.preventDefault();
+          var v = a.getAttribute("data-view");
+          if (v === "home" || v === "financial-summary" || v === "account-statement") showView(v);
+        });
+      }
+
+      function bindAstAccordion(rootId, toggleId) {
+        var root = document.getElementById(rootId);
+        var toggle = document.getElementById(toggleId);
+        if (!root || !toggle) return;
+        function flip() {
+          var collapsed = root.classList.toggle("collapsed");
+          toggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+        }
+        toggle.addEventListener("click", flip);
+        toggle.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            flip();
+          }
+        });
+      }
+      bindAstAccordion("ast-account-details", "ast-account-details-toggle");
+      bindAstAccordion("ast-branch-details", "ast-branch-details-toggle");
+
+      (function initAstTransactionsTable() {
+        var statusEl = document.getElementById("ast-tx-status");
+        var scrollEl = document.getElementById("ast-tx-scroll");
+        var tbody = document.getElementById("ast-tx-tbody");
+        var search = document.getElementById("ast-tx-search");
+        if (!statusEl || !scrollEl || !tbody) return;
+
+        function cellAmt(s) {
+          var n = parseFloat(String(s).replace(/,/g, ""), 10);
+          var td = document.createElement("td");
+          td.className = "ast-num ast-col-amt";
+          if (n === 0) {
+            var em = document.createElement("span");
+            em.className = "ast-tx-dash";
+            em.textContent = "—";
+            td.appendChild(em);
+          } else {
+            td.textContent = s;
+          }
+          return td;
+        }
+
+        function addRow(r) {
+          var tr = document.createElement("tr");
+          tr.setAttribute(
+            "data-search",
+            (
+              r.date +
+              " " +
+              r.details +
+              " " +
+              r.ref +
+              " " +
+              r.valueDate +
+              " " +
+              r.withdrawal +
+              " " +
+              r.deposit +
+              " " +
+              r.balance
+            ).toLowerCase()
+          );
+          var td;
+          td = document.createElement("td");
+          td.className = "ast-col-date";
+          td.textContent = r.date;
+          tr.appendChild(td);
+          td = document.createElement("td");
+          td.textContent = r.details;
+          tr.appendChild(td);
+          td = document.createElement("td");
+          td.className = "ast-col-ref";
+          td.textContent = r.ref;
+          tr.appendChild(td);
+          td = document.createElement("td");
+          td.className = "ast-col-vdate";
+          td.textContent = r.valueDate;
+          tr.appendChild(td);
+          tr.appendChild(cellAmt(r.withdrawal));
+          tr.appendChild(cellAmt(r.deposit));
+          td = document.createElement("td");
+          td.className = "ast-num ast-col-amt";
+          td.textContent = r.balance;
+          tr.appendChild(td);
+          tbody.appendChild(tr);
+        }
+
+        fetch("assets/transactions.json")
+          .then(function (res) {
+            if (!res.ok) throw new Error("missing");
+            return res.json();
+          })
+          .then(function (data) {
+            var rows = data.rows || [];
+            rows.forEach(addRow);
+            statusEl.hidden = true;
+            scrollEl.hidden = false;
+          })
+          .catch(function () {
+            statusEl.textContent =
+              "Could not load transactions. Add assets/transactions.json (run: python scripts/extract_transactions.py).";
+            statusEl.classList.add("ast-tx-err");
+          });
+
+        if (search) {
+          search.addEventListener("input", function () {
+            var q = search.value.trim().toLowerCase();
+            tbody.querySelectorAll("tr").forEach(function (tr) {
+              var hay = tr.getAttribute("data-search") || "";
+              tr.classList.toggle("ast-tx-hidden", q.length > 0 && hay.indexOf(q) === -1);
+            });
+          });
+        }
+      })();
+
+      var card = document.getElementById("account-card");
+      var toggle = document.getElementById("account-toggle");
+      if (!card || !toggle) return;
+
+      var arrowBtn = document.getElementById("Push6798");
+
+      function setCollapsed(collapsed) {
+        card.classList.toggle("collapsed", collapsed);
+        var expanded = !collapsed;
+        if (arrowBtn) {
+          arrowBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+          arrowBtn.classList.toggle("UpArrow", expanded);
+          arrowBtn.classList.toggle("DownArrow", !expanded);
+        }
+      }
+
+      toggle.addEventListener("click", function () {
+        setCollapsed(!card.classList.contains("collapsed"));
+      });
+    })();
+  </script>
+</body>
+</html>
