@@ -1,6 +1,6 @@
 {
-  "source": "transactions.pdf",
-  "count": 54,
+  "source": "manual-paste+append",
+  "count": 60,
   "rows": [
     {
       "date": "03/02/2025",
@@ -39,8 +39,17 @@
       "balance": "15,259.53"
     },
     {
+      "date": "04/02/2025",
+      "details": "UPI-GUNTIKOVELA SAI KRI-SAIKRISHNAGUNTIKOVELA-1@OKSBI-SBIN0006314-503598808450-UPI",
+      "ref": "503598808450",
+      "valueDate": "04/02/2025",
+      "withdrawal": "15,000.00",
+      "deposit": "0.00",
+      "balance": "259.53"
+    },
+    {
       "date": "05/02/2025",
-      "details": "UPI-NARSIMHAREDDY KASAAR-KASARLANARASIMH AREDDY42@OKAXIS-BARB0VJKMNG-540236142229-UPI",
+      "details": "UPI-NARSIMHAREDDY KASAAR-KASARLANARASIMHAREDDY42@OKAXIS-BARB0VJKMNG-540236142229-UPI",
       "ref": "540236142229",
       "valueDate": "05/02/2025",
       "withdrawal": "0.00",
@@ -58,7 +67,7 @@
     },
     {
       "date": "05/02/2025",
-      "details": "UPI-M G SERVICE STATION-Q530456724@YBL - YESB0YBLUPI-503650353684-UPI",
+      "details": "UPI-M G SERVICE STATION -Q530456724@YBL-YESB0YBLUPI-503650353684-UPI",
       "ref": "503650353684",
       "valueDate": "05/02/2025",
       "withdrawal": "100.00",
@@ -111,9 +120,18 @@
       "balance": "40,175.53"
     },
     {
+      "date": "12/02/2025",
+      "details": "UPI-TARUN PANWAR-BHARATPE90728124577@YESBANKLTD-YESB0YESUPI-504338527508-PAY TO BHARATPE ME",
+      "ref": "504338527508",
+      "valueDate": "12/02/2025",
+      "withdrawal": "10.00",
+      "deposit": "0.00",
+      "balance": "40,165.53"
+    },
+    {
       "date": "14/02/2025",
-      "details": "AMB CHRG INCL GST FOR JAN2025-MIR2504359 939862 MIR",
-      "ref": "2504359939862",
+      "details": "AMB CHRG INCL GST FOR JAN2025-MIR2504359939862",
+      "ref": "MIR2504359939862",
       "valueDate": "14/02/2025",
       "withdrawal": "127.49",
       "deposit": "0.00",
@@ -121,7 +139,7 @@
     },
     {
       "date": "20/02/2025",
-      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOV L8KE9@MBK-PPIW0881822-100321908533-UPI",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOVL8KE9@MBK-PPIW0881822-100321908533-UPI",
       "ref": "100321908533",
       "valueDate": "20/02/2025",
       "withdrawal": "20.00",
@@ -139,7 +157,7 @@
     },
     {
       "date": "23/02/2025",
-      "details": "UPI-KONDABOYINA RAVI TEJ-8341452075@YBL - KKBK0000958-100462407337-UPI",
+      "details": "UPI-KONDABOYINA RAVI TEJ-8341452075@YBL-KKBK0000958-100462407337-UPI",
       "ref": "100462407337",
       "valueDate": "23/02/2025",
       "withdrawal": "38,000.00",
@@ -157,7 +175,7 @@
     },
     {
       "date": "08/03/2025",
-      "details": "UPI-SRI CHAKRA TRANSPORT-PAYTM-768774@PT YS-YESB0PTMUPI-100860891617-UPI",
+      "details": "UPI-SRI CHAKRA TRANSPORT-PAYTM-768774@PTYS-YESB0PTMUPI-100860891617-UPI",
       "ref": "100860891617",
       "valueDate": "08/03/2025",
       "withdrawal": "145.00",
@@ -166,7 +184,7 @@
     },
     {
       "date": "11/03/2025",
-      "details": "UPI-JAY ENTERPRISES-PAYTMQR1C0IXO8NMR@PA YTM-YESB0PTMUPI-101327934235-UPI",
+      "details": "UPI-JAY ENTERPRISES-PAYTMQR1C0IXO8NMR@PAYTM-YESB0PTMUPI-101327934235-UPI",
       "ref": "101327934235",
       "valueDate": "11/03/2025",
       "withdrawal": "133.00",
@@ -175,7 +193,7 @@
     },
     {
       "date": "11/03/2025",
-      "details": "UPI-SHEEREN BEGUM-PAYTMQR5ETS9V@PTYS-YES B0PTMUPI-101329709073-UPI",
+      "details": "UPI-SHEEREN BEGUM-PAYTMQR5ETS9V@PTYS-YESB0PTMUPI-101329709073-UPI",
       "ref": "101329709073",
       "valueDate": "11/03/2025",
       "withdrawal": "880.00",
@@ -184,7 +202,7 @@
     },
     {
       "date": "12/03/2025",
-      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADL9237917NAY OUR2FC@MBK-PPIW0881822-101363779067-UPI",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADL9237917NAYOUR2FC@MBK-PPIW0881822-101363779067-UPI",
       "ref": "101363779067",
       "valueDate": "12/03/2025",
       "withdrawal": "20.00",
@@ -192,8 +210,17 @@
       "balance": "97,840.04"
     },
     {
+      "date": "13/03/2025",
+      "details": "UPI-HOTEL SRI ANNAPURNA -VYAPAR.173204571527@HDFCBANK-HDFC0MERUPI-101444581754-UPI",
+      "ref": "101444581754",
+      "valueDate": "13/03/2025",
+      "withdrawal": "17,000.00",
+      "deposit": "0.00",
+      "balance": "80,840.04"
+    },
+    {
       "date": "14/03/2025",
-      "details": "UPI-R ROYALBAWARCHI RES-Q942363199@YBL-Y ESB0YBLUPI-101492056586-UPI",
+      "details": "UPI-R ROYALBAWARCHI RES-Q942363199@YBL-YESB0YBLUPI-101492056586-UPI",
       "ref": "101492056586",
       "valueDate": "14/03/2025",
       "withdrawal": "10.00",
@@ -202,7 +229,7 @@
     },
     {
       "date": "14/03/2025",
-      "details": "UPI-R ROYALBAWARCHI RES-Q942363199@YBL-Y ESB0YBLUPI-101493113598-UPI",
+      "details": "UPI-R ROYALBAWARCHI RES-Q942363199@YBL-YESB0YBLUPI-101493113598-UPI",
       "ref": "101493113598",
       "valueDate": "14/03/2025",
       "withdrawal": "260.00",
@@ -211,7 +238,7 @@
     },
     {
       "date": "15/03/2025",
-      "details": "UPI-GOOGLE INDIA SERVICE-GPAYRECHARGE@IC ICI-ICIC0DC0099-101513194718-UPI",
+      "details": "UPI-GOOGLE INDIA SERVICE-GPAYRECHARGE@ICICI-ICIC0DC0099-101513194718-UPI",
       "ref": "101513194718",
       "valueDate": "15/03/2025",
       "withdrawal": "350.90",
@@ -228,6 +255,15 @@
       "balance": "80,209.14"
     },
     {
+      "date": "15/03/2025",
+      "details": "UPI-MD ATAULLAH-BHARATPE.90069323336@FBPE-FDRL0001382-101532834428-PAY TO BHARATPE ME",
+      "ref": "101532834428",
+      "valueDate": "15/03/2025",
+      "withdrawal": "40.00",
+      "deposit": "0.00",
+      "balance": "80,169.14"
+    },
+    {
       "date": "17/03/2025",
       "details": "UPI-MOHAMMED MAQSOOD AHM-MAQSOODFOURU-1@OKHDFCBANK-UTIB0005043-101607183498-UPI",
       "ref": "101607183498",
@@ -238,7 +274,7 @@
     },
     {
       "date": "17/03/2025",
-      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADL9237917NAY OUR2FC@MBK-PPIW0881822-101613223002-UPI",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADL9237917NAYOUR2FC@MBK-PPIW0881822-101613223002-UPI",
       "ref": "101613223002",
       "valueDate": "17/03/2025",
       "withdrawal": "90.00",
@@ -247,7 +283,7 @@
     },
     {
       "date": "23/03/2025",
-      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOV L8KE9@MBK-PPIW0881822-101921194429-UPI",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOVL8KE9@MBK-PPIW0881822-101921194429-UPI",
       "ref": "101921194429",
       "valueDate": "23/03/2025",
       "withdrawal": "20.00",
@@ -256,7 +292,7 @@
     },
     {
       "date": "24/03/2025",
-      "details": "UPI-MR MOHAMMED MOHSIN A-MAXSYMOHSIN@OKA XIS-SCBL0036046-508375618751-UPI",
+      "details": "UPI-MR MOHAMMED MOHSIN A-MAXSYMOHSIN@OKAXIS-SCBL0036046-508375618751-UPI",
       "ref": "508375618751",
       "valueDate": "24/03/2025",
       "withdrawal": "0.00",
@@ -265,7 +301,7 @@
     },
     {
       "date": "25/03/2025",
-      "details": "UPI-KRISHNAS MART-PAYTM-66461025@PTYS-YE SB0PTMUPI-102027702141-UPI",
+      "details": "UPI-KRISHNAS MART-PAYTM-66461025@PTYS-YESB0PTMUPI-102027702141-UPI",
       "ref": "102027702141",
       "valueDate": "25/03/2025",
       "withdrawal": "5,038.00",
@@ -274,7 +310,7 @@
     },
     {
       "date": "26/03/2025",
-      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOV L8KE9@MBK-PPIW0881822-102091068451-UPI",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOVL8KE9@MBK-PPIW0881822-102091068451-UPI",
       "ref": "102091068451",
       "valueDate": "26/03/2025",
       "withdrawal": "20.00",
@@ -283,7 +319,7 @@
     },
     {
       "date": "27/03/2025",
-      "details": "UPI-MD MUNAWAR-MUNAWARCITRIX12@OKAXIS-KK BK0007494-545249183014-UPI",
+      "details": "UPI-MD MUNAWAR-MUNAWARCITRIX12@OKAXIS-KKBK0007494-545249183014-UPI",
       "ref": "545249183014",
       "valueDate": "27/03/2025",
       "withdrawal": "0.00",
@@ -292,7 +328,7 @@
     },
     {
       "date": "28/03/2025",
-      "details": "UPI-VIJAY RAO JANAJI-Q584583077@YBL-YESB 0YBLUPI-102216626452-UPI",
+      "details": "UPI-VIJAY RAO JANAJI-Q584583077@YBL-YESB0YBLUPI-102216626452-UPI",
       "ref": "102216626452",
       "valueDate": "28/03/2025",
       "withdrawal": "15,000.00",
@@ -301,7 +337,7 @@
     },
     {
       "date": "30/03/2025",
-      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOV L8KE9@MBK-PPIW0881822-102289007457-UPI",
+      "details": "UPI-MOBIKWIKMERCHANT-OMBK.AADZ726175XLOVL8KE9@MBK-PPIW0881822-102289007457-UPI",
       "ref": "102289007457",
       "valueDate": "30/03/2025",
       "withdrawal": "530.00",
@@ -310,7 +346,7 @@
     },
     {
       "date": "31/03/2025",
-      "details": "UPI-BANDI NAVEEN-9618667021@IBL-CNRB0000 033-102339453032-UPI",
+      "details": "UPI-BANDI NAVEEN-9618667021@IBL-CNRB0000033-102339453032-UPI",
       "ref": "102339453032",
       "valueDate": "31/03/2025",
       "withdrawal": "10.00",
@@ -337,7 +373,7 @@
     },
     {
       "date": "02/04/2025",
-      "details": "UPI-MR CHITUKULA SATHISH-Q544625980@YBL - YESB0YBLUPI-545830391164-UPI",
+      "details": "UPI-MR CHITUKULA SATHISH-Q544625980@YBL-YESB0YBLUPI-545830391164-UPI",
       "ref": "545830391164",
       "valueDate": "02/04/2025",
       "withdrawal": "40.00",
@@ -346,7 +382,7 @@
     },
     {
       "date": "02/04/2025",
-      "details": "UPI-KRISHN KUMAR SAH-Q393676684@YBL-YESB 0YBLUPI-102482799567-UPI",
+      "details": "UPI-KRISHN KUMAR SAH-Q393676684@YBL-YESB0YBLUPI-102482799567-UPI",
       "ref": "102482799567",
       "valueDate": "02/04/2025",
       "withdrawal": "25.00",
@@ -355,7 +391,7 @@
     },
     {
       "date": "03/04/2025",
-      "details": "UPI-MR SYED AKBAR-Q440183753@YBL-YESB0YB LUPI-102533859891-UPI",
+      "details": "UPI-MR SYED AKBAR-Q440183753@YBL-YESB0YBLUPI-102533859891-UPI",
       "ref": "102533859891",
       "valueDate": "03/04/2025",
       "withdrawal": "100.00",
@@ -364,7 +400,7 @@
     },
     {
       "date": "03/04/2025",
-      "details": "UPI-VIJAY SINGH-Q318903350@YBL-YESB0YBLU PI-102544560432-UPI",
+      "details": "UPI-VIJAY SINGH-Q318903350@YBL-YESB0YBLUPI-102544560432-UPI",
       "ref": "102544560432",
       "valueDate": "03/04/2025",
       "withdrawal": "15.00",
@@ -373,7 +409,7 @@
     },
     {
       "date": "03/04/2025",
-      "details": "UPI-VIJAY SINGH-Q318903350@YBL-YESB0YBLU PI-102544601993-UPI",
+      "details": "UPI-VIJAY SINGH-Q318903350@YBL-YESB0YBLUPI-102544601993-UPI",
       "ref": "102544601993",
       "valueDate": "03/04/2025",
       "withdrawal": "3.00",
@@ -382,7 +418,7 @@
     },
     {
       "date": "03/04/2025",
-      "details": "UPI-KETHAVATH PANDU-Q385663085@YBL-YESB0 YBLUPI-102545128536-UPI",
+      "details": "UPI-KETHAVATH PANDU-Q385663085@YBL-YESB0YBLUPI-102545128536-UPI",
       "ref": "102545128536",
       "valueDate": "03/04/2025",
       "withdrawal": "10.00",
@@ -399,8 +435,26 @@
       "balance": "2,940.14"
     },
     {
+      "date": "04/04/2025",
+      "details": "UPI-MC DONALDS-MCDONALDS.40986465@HDFCBANK-HDFC0MERUPI-102582910519-GENERATING DYNAMIC",
+      "ref": "102582910519",
+      "valueDate": "04/04/2025",
+      "withdrawal": "80.01",
+      "deposit": "0.00",
+      "balance": "2,860.13"
+    },
+    {
       "date": "05/04/2025",
-      "details": "UPI-H P PETROL PUMP M G-Q231950437@YBL - YESB0YBLUPI-102647346342-UPI",
+      "details": "UPI-P CHANDRA SHEKAR-BHARATPE90728133848@YESBANKLTD-YESB0YESUPI-102634492749-PAY TO BHARATPE ME",
+      "ref": "102634492749",
+      "valueDate": "05/04/2025",
+      "withdrawal": "30.00",
+      "deposit": "0.00",
+      "balance": "2,830.13"
+    },
+    {
+      "date": "05/04/2025",
+      "details": "UPI-H P PETROL PUMP M G -Q231950437@YBL-YESB0YBLUPI-102647346342-UPI",
       "ref": "102647346342",
       "valueDate": "05/04/2025",
       "withdrawal": "150.00",
@@ -409,7 +463,7 @@
     },
     {
       "date": "06/04/2025",
-      "details": "UPI-MAHANKALI MADHUSUDHA-Q616475109@YBL - YESB0YBLUPI-102697092074-UPI",
+      "details": "UPI-MAHANKALI MADHUSUDHA-Q616475109@YBL-YESB0YBLUPI-102697092074-UPI",
       "ref": "102697092074",
       "valueDate": "06/04/2025",
       "withdrawal": "150.00",
@@ -418,7 +472,7 @@
     },
     {
       "date": "06/04/2025",
-      "details": "UPI-MD SHARFU UDDIN-PAYTMQR5WNC6C@PTYS-Y ESB0PTMUPI-102829641521-UPI",
+      "details": "UPI-MD SHARFU UDDIN-PAYTMQR5WNC6C@PTYS-YESB0PTMUPI-102829641521-UPI",
       "ref": "102829641521",
       "valueDate": "06/04/2025",
       "withdrawal": "70.00",
@@ -427,7 +481,7 @@
     },
     {
       "date": "06/04/2025",
-      "details": "UPI-CHANDRA PRAKASH-Q815526843@YBL-YESB0 YBLUPI-102922989253-UPI",
+      "details": "UPI-CHANDRA PRAKASH-Q815526843@YBL-YESB0YBLUPI-102922989253-UPI",
       "ref": "102922989253",
       "valueDate": "06/04/2025",
       "withdrawal": "20.00",
@@ -463,7 +517,7 @@
     },
     {
       "date": "18/04/2025",
-      "details": "UPI-PRASHOBH KUMAR K-PAYTMQR6AT1GQ@PTYS- YESB0PTMUPI-103369839428-UPI",
+      "details": "UPI-PRASHOBH KUMAR K-PAYTMQR6AT1GQ@PTYS-YESB0PTMUPI-103369839428-UPI",
       "ref": "103369839428",
       "valueDate": "18/04/2025",
       "withdrawal": "90.00",
@@ -472,7 +526,7 @@
     },
     {
       "date": "25/04/2025",
-      "details": "UPI-DEEKONDA SHANKER-Q559291901@YBL-UBIN 0532754-103767107568-UPI",
+      "details": "UPI-DEEKONDA SHANKER-Q559291901@YBL-UBIN0532754-103767107568-UPI",
       "ref": "103767107568",
       "valueDate": "25/04/2025",
       "withdrawal": "13,000.00",
@@ -481,7 +535,7 @@
     },
     {
       "date": "27/04/2025",
-      "details": "UPI-SHAIK MASTANVALI-PAYTMQR5WRZ07@PTYS - YESB0PTMUPI-103866335018-UPI",
+      "details": "UPI-SHAIK MASTANVALI-PAYTMQR5WRZ07@PTYS-YESB0PTMUPI-103866335018-UPI",
       "ref": "103866335018",
       "valueDate": "27/04/2025",
       "withdrawal": "15,000.00",

@@ -122,7 +122,7 @@
       padding-bottom: 48px;
     }
 
-    /* User banner: top row = name/ID | divider | period + PDF; bottom row = full-width address */
+    /* User banner: top row = name/ID | divider | period; bottom row = full-width address */
     .user-banner {
       background: #ebf5fa;
       border: 1px solid var(--border-light);
@@ -303,30 +303,6 @@
       -webkit-text-fill-color: #000000;
       text-align: left;
       margin: 0;
-    }
-
-    .btn-pdf {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--hdfc-blue);
-      color: #fff;
-      border: none;
-      padding: 9px 16px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .btn-pdf svg {
-      flex-shrink: 0;
-      opacity: 0.95;
-    }
-
-    .btn-pdf:hover {
-      background: var(--hdfc-blue-dark);
     }
 
     /* Main grid */
@@ -1066,7 +1042,7 @@
       line-height: 0;
     }
 
-    /* Transactions table — data from assets/transactions.json (see scripts/extract_transactions.py) */
+    /* Transactions table — data from assets/transactions.json */
     .ast-tx-section {
       margin-top: 16px;
       margin-left: -18px;
@@ -1171,30 +1147,11 @@
       color: #888888;
     }
 
-    .ast-pdf-fallback {
-      margin: 0;
-      padding: 10px 18px 14px;
-      font-size: 12px;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #555555;
-      border-top: 1px solid #e8eef3;
-    }
-
-    .ast-pdf-fallback a {
-      color: #004b8d;
-      font-weight: 600;
-    }
-
     @media (max-width: 700px) {
       .ast-tx-section {
         margin-left: -14px;
         margin-right: -14px;
         width: calc(100% + 28px);
-      }
-
-      .ast-pdf-fallback {
-        padding-left: 14px;
-        padding-right: 14px;
       }
 
       .ast-tx-scroll {
@@ -1522,12 +1479,6 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn-pdf">
-          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-            <path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm-5 0v6h6V9h-4V3h-2zM5 19V5h8v4h6v10H5z"/>
-          </svg>
-          Save as PDF
-        </button>
       </div>
       <p class="address-row">
         9-151/5 Near Govt Hospital, Ghatkesar Ghatkesar K.v. Rangareddy, ., Telangana, India, 501301
@@ -1764,11 +1715,6 @@
                     <tbody id="ast-tx-tbody"></tbody>
                   </table>
                 </div>
-                <p class="ast-pdf-fallback">
-                  <a href="assets/transactions.pdf" target="_blank" rel="noopener">Open full statement PDF</a>
-                  · Regenerate table data after replacing the PDF:
-                  <code style="font-size: 11px">python scripts/extract_transactions.py</code>
-                </p>
               </div>
             </div>
           </section>
@@ -1915,7 +1861,7 @@
           })
           .catch(function () {
             statusEl.textContent =
-              "Could not load transactions. Add assets/transactions.json (run: python scripts/extract_transactions.py).";
+              "Could not load transactions. Ensure assets/transactions.json is available.";
             statusEl.classList.add("ast-tx-err");
           });
 
