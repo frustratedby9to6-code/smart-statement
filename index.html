@@ -156,6 +156,31 @@
       min-width: 0;
     }
 
+    .btn-fs-pdf {
+      background: #003b71;
+      color: #ffffff;
+      border: none;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: Arial, Helvetica, sans-serif;
+      cursor: pointer;
+      border-radius: 2px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+
+    .btn-fs-pdf:hover {
+      filter: brightness(1.08);
+    }
+
+    .btn-fs-pdf:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      filter: none;
+    }
+
     .address-row {
       grid-column: 1 / -1;
       grid-row: 2;
@@ -1669,6 +1694,15 @@
             </div>
           </div>
         </div>
+        <button
+          type="button"
+          class="btn-fs-pdf"
+          id="fs-save-pdf"
+          aria-label="Save account statement transactions as PDF"
+          title="Editor or in-app browsers often show a Save dialog. Open this URL in Chrome or Safari for a normal download to Downloads."
+        >
+          Save as PDF
+        </button>
       </div>
       <p class="address-row">
         9-151/5 Near Govt Hospital, Ghatkesar Ghatkesar K.v. Rangareddy, ., Telangana, India, 501301
@@ -1995,13 +2029,17 @@
         });
       }
     })();
-
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.3/dist/jspdf.plugin.autotable.min.js"></script>
+  <script>
     (function () {
       var panelHome = document.getElementById("view-home");
       var panelFs = document.getElementById("view-financial-summary");
       var panelAst = document.getElementById("view-account-statement");
       var panelPh = document.getElementById("view-nav-placeholder");
       var nav = document.querySelector(".nav");
+      var astTxRows = null;
       if (panelHome && panelFs && panelAst && nav) {
         /* Browser tab text only — change to any fixed string you want */
         var BROWSER_TAB_TITLE = "HDFC BANK";
@@ -2187,11 +2225,13 @@
           })
           .then(function (data) {
             var rows = data.rows || [];
+            astTxRows = rows;
             rows.forEach(addRow);
             statusEl.hidden = true;
             scrollEl.hidden = false;
           })
           .catch(function () {
+            astTxRows = null;
             statusEl.textContent =
               "Could not load transactions. Ensure assets/transactions.json is available.";
             statusEl.classList.add("ast-tx-err");
@@ -2207,6 +2247,114 @@
           });
         }
       })();
+
+      var fsPdfBtn = document.getElementById("fs-save-pdf");
+      function fmtPdfAmt(s) {
+        var n = parseFloat(String(s).replace(/,/g, ""), 10);
+        if (n === 0 || isNaN(n)) return "-";
+        return String(s);
+      }
+      function downloadStatementTransactionsPdf() {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+          window.alert(
+            "PDF could not be created. Check your network connection and try again."
+          );
+          return;
+        }
+        if (!astTxRows || !astTxRows.length) {
+          window.alert(
+            "No transactions are loaded. Wait for the statement to finish loading, then try again."
+          );
+          return;
+        }
+        var JsPDF = window.jspdf.jsPDF;
+        var doc = new JsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+        if (typeof doc.autoTable !== "function") {
+          window.alert("PDF table support failed to load.");
+          return;
+        }
+        var nameEl = document.querySelector("#view-financial-summary .user-main .name");
+        var pd = document.querySelectorAll("#view-financial-summary .period-date");
+        var fromD = pd[0] ? pd[0].textContent.trim() : "";
+        var toD = pd[1] ? pd[1].textContent.trim() : "";
+
+        doc.setFontSize(11);
+        doc.setTextColor(0, 75, 141);
+        doc.text("Account Statement - Transactions", 14, 14);
+        doc.setFontSize(9);
+        doc.setTextColor(55, 55, 55);
+        var y = 20;
+        if (nameEl) {
+          doc.text(nameEl.textContent.trim(), 14, y);
+          y += 6;
+        }
+        doc.text("Account: 50100454203101", 14, y);
+        y += 6;
+        doc.text("Statement period: " + fromD + " to " + toD, 14, y);
+
+        var head = [
+          [
+            "Date",
+            "Transaction details",
+            "Cheque/Ref No",
+            "Value date",
+            "Withdrawal",
+            "Deposit",
+            "Closing Balance"
+          ]
+        ];
+        var body = astTxRows.map(function (r) {
+          return [
+            r.date,
+            r.details,
+            r.ref,
+            r.valueDate,
+            fmtPdfAmt(r.withdrawal),
+            fmtPdfAmt(r.deposit),
+            r.balance
+          ];
+        });
+
+        doc.autoTable({
+          startY: y + 4,
+          head: head,
+          body: body,
+          styles: { fontSize: 7, cellPadding: 1.2, valign: "top", overflow: "linebreak" },
+          headStyles: {
+            fillColor: [225, 241, 251],
+            textColor: [0, 75, 141],
+            fontStyle: "bold"
+          },
+          columnStyles: {
+            0: { cellWidth: 22 },
+            1: { cellWidth: 78 },
+            2: { cellWidth: 28 },
+            3: { cellWidth: 22 },
+            4: { cellWidth: 24, halign: "right" },
+            5: { cellWidth: 24, halign: "right" },
+            6: { cellWidth: 26, halign: "right" }
+          },
+          margin: { left: 14, right: 14 }
+        });
+
+        var pdfName = "account-statement-transactions.pdf";
+        var buf = doc.output("arraybuffer");
+        var blob = new Blob([buf], { type: "application/pdf" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = pdfName;
+        a.rel = "noopener";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function () {
+          URL.revokeObjectURL(url);
+        }, 2500);
+      }
+      if (fsPdfBtn) {
+        fsPdfBtn.addEventListener("click", downloadStatementTransactionsPdf);
+      }
 
       var card = document.getElementById("account-card");
       var toggle = document.getElementById("account-toggle");
