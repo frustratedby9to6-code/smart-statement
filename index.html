@@ -258,7 +258,6 @@
       row-gap: 16px;
     }
 
-    /* Stack "To" directly above the date (same left edge within the column) */
     .period-col:last-child {
       align-items: flex-start;
       text-align: left;
@@ -1017,7 +1016,7 @@
       font-size: 13px;
       font-family: Arial, Helvetica, sans-serif;
       color: #333333;
-      border: 1px solid #c5d9eb;
+      border: 1px solid #000000;
       border-radius: 2px;
       background: #ffffff;
       box-sizing: border-box;
@@ -1028,7 +1027,7 @@
     }
 
     .ast-search-wrap input:focus {
-      outline: 2px solid rgba(0, 75, 141, 0.3);
+      outline: 2px solid #000000;
       outline-offset: 1px;
     }
 
@@ -1066,11 +1065,9 @@
       color: #a61a1a;
     }
 
+    /* No inner scroll — full table height; page scrolls naturally */
     .ast-tx-scroll {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      max-height: min(75vh, 900px);
-      overflow-y: auto;
+      overflow: visible;
     }
 
     .ast-tx-table {
@@ -1152,10 +1149,6 @@
         margin-left: -14px;
         margin-right: -14px;
         width: calc(100% + 28px);
-      }
-
-      .ast-tx-scroll {
-        max-height: 65vh;
       }
 
       .ast-tx-table {
@@ -1668,11 +1661,11 @@
           <div class="period-dates">
             <div class="period-col">
               <span class="period-label">From</span>
-              <p class="period-date">01/01/2025</p>
+              <p class="period-date">01/02/2025</p>
             </div>
             <div class="period-col">
               <span class="period-label">To</span>
-              <p class="period-date">10/01/2026</p>
+              <p class="period-date">30/04/2026</p>
             </div>
           </div>
         </div>
@@ -1703,7 +1696,7 @@
             <div class="acct-summary-strip">
               <span>Savings Account(INR)</span>
               <div class="balance-line">
-                <span class="balance-total">Total Available Balance : ₹0.00</span>
+                <span class="balance-total">Total Available Balance : ₹25,340.13</span>
                 <span class="icon-minus" aria-hidden="true">−</span>
               </div>
             </div>
@@ -1715,7 +1708,7 @@
                 </div>
                 <div class="balance-line">
                   <span class="muted" style="display: block; margin-bottom: 4px;">Available Balance</span>
-                  <span class="avail-amt">₹0.00</span>
+                  <span class="avail-amt">₹25,340.13</span>
                   <a class="link-view" href="#">View</a>
                 </div>
               </div>
@@ -1775,7 +1768,7 @@
         <div class="ast-banner-head">
           <div class="ast-toolbar">
             <p class="ast-title" id="PlainText550007">Account Statement</p>
-            <p class="ast-period">Statement Period:From 01/01/2025 To 10/01/2026</p>
+            <p class="ast-period">Statement Period:From 01/02/2025 To 30/04/2026</p>
           </div>
         </div>
 
@@ -1845,7 +1838,7 @@
             <div class="ast-accordion-body" id="ast-branch-details-body">
               <div class="ast-detail-grid">
                 <div class="ast-detail-col ast-detail-col-grid">
-                  <span class="ast-label">Branch name</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">Ghatkesar (S_4480)</span>
+                  <span class="ast-label">Branch name</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">S 4480</span>
                   <span class="ast-label">Branch address</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">Ghatkesar, Telangana</span>
                   <span class="ast-label">Branch phone number</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-sep" aria-hidden="true">:</span><span class="ast-pad" aria-hidden="true"></span><span class="ast-val">18002600/18001600</span>
                 </div>
